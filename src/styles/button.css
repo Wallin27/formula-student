@@ -1,0 +1,62 @@
+.hero__actions {
+	display: flex;
+	gap: 12px;
+}
+
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: fit-content;
+	min-height: 48px;
+	border: 1px solid transparent;
+	font: inherit;
+	font-weight: 700;
+	line-height: 1.2;
+	text-decoration: none;
+	white-space: nowrap;
+	cursor: pointer;
+	transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
+	border-radius: 8px;
+}
+
+.btn--small {
+	padding: 8px 16px;
+	font-size: 0.8rem;
+}
+
+.btn--medium {
+	padding: 12px 24px;
+	font-size: 0.9rem;
+}
+
+.btn--large {
+	padding: 16px 32px;
+	font-size: 1rem;
+}
+
+.btn--primary {
+	background: var(--color-accent);
+	color: var(--color-brand);
+}
+
+.btn--primary:hover,
+.btn--primary:focus-visible {
+	background: var(--color-white);
+}
+
+.btn--secondary {
+	border-color: var(--color-accent);
+	color: var(--color-accent);
+}
+
+.btn--secondary:hover,
+.btn--secondary:focus-visible {
+	background: var(--color-accent);
+	color: var(--color-brand);
+}
+
+.btn:focus-visible {
+	outline: 3px solid var(--color-white);
+	outline-offset: 3px;
+}

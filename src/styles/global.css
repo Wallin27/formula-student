@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root {
+  --color-brand: #004225;
+  --color-accent: #C6A15B;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-text: #f5efdfcc;
+  --font-body: 'Manrope', sans-serif;
+  --font-heading: 'Space Grotesk', sans-serif;
+
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 3.75rem;
+  --text-7xl: 4.5rem;
+  --text-8xl: 6rem;
+  --text-9xl: 8rem;
+
+  --leading-base: 1.5rem;
+  --leading-lg: 1.75rem;
+  --leading-xl: 1.75rem;
+  --leading-2xl: 2rem;
+  --leading-3xl: 2.25rem;
+  --leading-4xl: 2.5rem;
+  --leading-5xl: 3rem;
+  --leading-6xl: 3.75rem;
+  --leading-7xl: 4.5rem;
+  --leading-8xl: 6rem;
+  --leading-9xl: 8rem;
+}
+
+html {
+  background-color: #f1f5f9;
+  font-family: var(--font-body);
+}
+
+body {
+  margin: 0 auto;
+  width: 100%;
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+  background: var(--color-brand)
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  margin: 1rem 0;
+  font-size: var(--text-8xl);
+  line-height: var(--leading-8xl);
+  font-family: var(--font-heading);
+}
+
+.text-base { font-size: var(--text-base); line-height: var(--leading-base); }
+.text-lg { font-size: var(--text-lg); line-height: var(--leading-lg); }
+.text-xl { font-size: var(--text-xl); line-height: var(--leading-xl); }
+.text-2xl { font-size: var(--text-2xl); line-height: var(--leading-2xl); }
+.text-3xl { font-size: var(--text-3xl); line-height: var(--leading-3xl); }
+.text-4xl { font-size: var(--text-4xl); line-height: var(--leading-4xl); }
+.text-5xl { font-size: var(--text-5xl); line-height: var(--leading-5xl); }
+.text-6xl { font-size: var(--text-6xl); line-height: var(--leading-6xl); }
+.text-7xl { font-size: var(--text-7xl); line-height: var(--leading-7xl); }
+.text-8xl { font-size: var(--text-8xl); line-height: var(--leading-8xl); }
+.text-9xl { font-size: var(--text-9xl); line-height: var(--leading-9xl); }

@@ -1,13 +1,97 @@
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>My Astro Site</h1>
-	</body>
-</html>
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Button from "@/components/Button";
+import "@/styles/index.css";
+import "@/styles/global.css";
+---
+
+<BaseLayout>
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero__mark" aria-hidden="true"></div>
+    <div class="hero__inner">
+      <div class="hero__inner-left">
+        <div class="hero__eyebrow-row">
+          <span class="hero__eyebrow-stripe"></span>
+          <p class="hero__eyebrow-text">New Formula Student Team · Umeå</p>
+        </div>
+
+        <h1 id="hero-heading" class="hero__title">
+          Turning concepts <br /> into reality
+        </h1>
+        <p class="hero__title-subtitle">
+          A new student motorsport initiative at Umeå University, Sweden. On a mission to design, build, and race our first electric formula-style vehicle.
+        </p>  
+      </div>
+      
+      <div class="hero__inner-right">
+        <p class="hero__lead">
+        We are Umeå Formula Student — a newly founded team of engineering
+        students ready to design, build and race our first electric formula car.
+        </p>
+        <div class="hero__actions">
+          <Button href="/join-team" text="Check out the team" />
+          <Button href="/team" text="Learn more" variant="secondary" />
+        </div>
+      </div>
+      
+    </div>
+
+    <div class="hero__stripe" aria-hidden="true"></div>
+  </section>
+
+
+
+
+
+
+
+  <section class="hero" aria-labelledby="hero-heading">
+    <div class="hero__mark" aria-hidden="true"></div>
+
+    <div class="hero__inner">
+      <div class="hero__eyebrow-row">
+        <span class="hero__eyebrow-stripe"></span>
+        <p class="hero__eyebrow-text">New Formula Student Team · Umeå</p>
+      </div>
+
+      <h1 id="hero-heading" class="hero__title">
+        Turning concepts into <em class="hero__accent">reality.</em>
+      </h1>
+
+      <p class="hero__lead">
+        We are Umeå Formula Student — a newly founded team of engineering
+        students ready to design, build and race our first electric formula car.
+      </p>
+
+      <div class="hero__actions">
+        <Button href="/join-team" text="Check out the team" />
+        <Button href="/team" text="Learn more" variant="secondary" />
+      </div>
+    </div>
+
+    <div class="hero__stripe" aria-hidden="true"></div>
+  </section><section class="hero" aria-labelledby="hero-heading">
+    <div class="hero__mark" aria-hidden="true"></div>
+
+    <div class="hero__inner">
+      <div class="hero__eyebrow-row">
+        <span class="hero__eyebrow-stripe"></span>
+        <p class="hero__eyebrow-text">New Formula Student Team · Umeå</p>
+      </div>
+
+      <h1 id="hero-heading" class="hero__title">
+        Turning concepts into <em class="hero__accent">reality.</em>
+      </h1>
+
+      <p class="hero__lead">
+        We are Umeå Formula Student — a newly founded team of engineering
+        students ready to design, build and race our first electric formula car.
+      </p>
+
+      <div class="hero__actions">
+        <Button href="/join-team" text="Join our team" />
+        <Button href="/team" text="Learn more" variant="secondary" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

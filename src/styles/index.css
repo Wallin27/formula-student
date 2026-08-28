@@ -1,0 +1,78 @@
+.hero {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	min-height: 100dvh;
+	padding: 100px 60px 76px;
+	overflow: hidden;
+	background: radial-gradient(120% 90% at 80% 15%, #0a5c39 0%, #004225 46%, #00301d 100%);
+}
+
+.hero::before {
+	position: absolute;
+	top: 60%;
+	left: 20%;
+	width: min(130vw, 3000px);
+	height: min(130vw, 3000px);
+	background: url('/assets/brand.svg') center / contain no-repeat;
+	opacity: 0.1;
+	content: '';
+	transform: translateY(-50%);
+	pointer-events: none;
+}
+
+.hero__inner {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: flex-end;
+	margin-top: auto;
+}
+
+.hero__inner-left {
+	width: 90%;
+}
+
+.hero__inner-right {
+	align-self: flex-end;
+	max-width: 100%;
+	padding-left: 60px;
+}
+.hero__title {
+	color: var(--color-white);
+	text-transform: uppercase;
+}
+
+.hero__eyebrow-row {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin-bottom:28px;
+}
+
+.hero__eyebrow-stripe {
+	width: 40px;
+	height: 1px;
+	background: var(--color-accent);
+}
+
+.hero__eyebrow-text {
+	font-size: var(--text-sm);
+	letter-spacing: 0.28em;
+	text-transform: uppercase;
+	color: var(--color-accent);
+}
+
+.hero__lead {
+	font-size: var(--text-lg);
+	line-height: var(--leading-2xl);
+	color: var(--color-text);
+}
+
+.hero__title-subtitle {
+	font-size: var(--text-lg);
+	line-height: var(--leading-2xl);
+	color: var(--color-text);
+}
