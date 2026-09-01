@@ -16,8 +16,10 @@
 	text-decoration: none;
 	white-space: nowrap;
 	cursor: pointer;
-	transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
-	border-radius: 8px;
+	transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease, filter 250ms ease;
+	text-transform: uppercase;
+	background-color: rgba(0, 0, 0, 0.30);
+	backdrop-filter: blur(6px);
 }
 
 .btn--small {
@@ -36,27 +38,47 @@
 }
 
 .btn--primary {
-	background: var(--color-accent);
-	color: var(--color-brand);
-}
-
-.btn--primary:hover,
-.btn--primary:focus-visible {
-	background: var(--color-white);
-}
-
-.btn--secondary {
 	border-color: var(--color-accent);
 	color: var(--color-accent);
 }
 
-.btn--secondary:hover,
-.btn--secondary:focus-visible {
+.btn--primary:hover,
+.btn--primary:focus-visible {
+	/*background: var(--color-accent);
+	color: var(--color-brand);
+	*/
+	border-color: var(--color-accent-bright);
+	color: var(--color-accent-bright);
+}
+
+.btn--secondary {
 	background: var(--color-accent);
 	color: var(--color-brand);
+}
+
+.btn--secondary:hover,
+.btn--secondary:focus-visible {
+	filter: brightness(0.8);
 }
 
 .btn:focus-visible {
 	outline: 3px solid var(--color-white);
 	outline-offset: 3px;
+}
+
+/* The nav sits over the bright end of the hero gradient, so matching the hero
+   buttons' 0.30 needs a heavier tint here: 0.30 nav + 0.20 button = 0.44 total. */
+.site-nav__cta .btn--primary {
+	background-color: rgba(0, 0, 0, 0.28);
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+}
+
+.site-nav__cta .btn--primary:hover,
+.site-nav__cta .btn--primary:focus-visible {
+	/* 
+	background-color: var(--color-accent);
+	*/
+	border-color: var(--color-accent-bright);
+	color: var(--color-accent-bright);
 }
