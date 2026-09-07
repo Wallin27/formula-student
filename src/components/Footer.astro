@@ -1,0 +1,174 @@
+---
+import InstagramIcon from '@/components/icons/InstagramIcon.astro';
+import LinkedInIcon from '@/components/icons/LinkedInIcon.astro';
+import MailIcon from '@/components/icons/MailIcon.astro';
+import { mailto, site } from '@/data/site';
+
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+	<div class="site-footer__row site-footer__row--brand">
+		<a class="site-footer__brand" href="/">
+			<img src="/assets/logo-brand.svg" alt={`${site.name} — home`} />
+		</a>
+
+		<ul class="site-footer__social">
+			<li>
+				<a href={site.social.instagram}>
+					<InstagramIcon />
+					<span>Instagram</span>
+				</a>
+			</li>
+			<li>
+				<a href={site.social.linkedin}>
+					<LinkedInIcon />
+					<span>LinkedIn</span>
+				</a>
+			</li>
+			<li>
+				<a href={mailto}>
+					<MailIcon />
+					<span>Email</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="site-footer__row site-footer__row--legal">
+		<address class="site-footer__contact">
+			<span>{site.address.inline}</span>
+			<span class="site-footer__sep" aria-hidden="true">·</span>
+			<a href={mailto}>{site.email}</a>
+		</address>
+
+		<p class="site-footer__copy">© {year} {site.name}. All rights reserved.</p>
+	</div>
+</footer>
+
+<style>
+	.site-footer {	
+		--footer-bg: #002013;
+		--footer-ink: var(--color-cream);
+
+		display: grid;
+		gap: 22px;
+		padding: 40px 60px 32px;
+		background: var(--footer-bg);
+		border-top: 1px solid color-mix(in srgb, var(--color-accent) 28%, transparent);
+	}
+
+	.site-footer__row {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: space-between;
+		gap: 14px 32px;
+	}
+
+	.site-footer__row--brand {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.site-footer__row--legal {
+		padding-top: 20px;
+		border-top: 1px solid color-mix(in srgb, var(--footer-ink) 12%, transparent);
+	}
+
+	.site-footer__brand {
+		height: 80px;
+	}
+
+	.site-footer__brand img {
+		display: block;
+		width: auto;
+		height: 100%;
+	}
+
+	.site-footer__social {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px 28px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.site-footer__social a {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 0.75rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		text-decoration: none;
+		color: color-mix(in srgb, var(--footer-ink) 60%, transparent);
+		transition: color 0.2s ease;
+	}
+
+	.site-footer__social a:hover {
+		color: var(--color-accent);
+	}
+
+	/* :global because the icon components render the <svg>, so it lacks this scope hash */
+	.site-footer__social :global(svg) {
+		flex: none;
+		width: var(--icon-md);
+		height: var(--icon-md);
+		color: var(--color-accent);
+	}
+
+	.site-footer__contact {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 2px 10px;
+		font-size: 0.75rem;
+		font-style: normal;
+		letter-spacing: 0.08em;
+		line-height: 1.6;
+		color: color-mix(in srgb, var(--footer-ink) 55%, transparent);
+	}
+
+	.site-footer__contact a {
+		color: inherit;
+		text-decoration: none;
+		transition: color 0.2s ease;
+	}
+
+	.site-footer__contact a:hover {
+		color: var(--color-accent);
+	}
+
+	.site-footer__copy {
+		margin: 0;
+		font-size: 0.6875rem;
+		letter-spacing: 0.08em;
+		color: color-mix(in srgb, var(--footer-ink) 38%, transparent);
+	}
+
+	@media (max-width: 640px) {
+		.site-footer {
+			gap: 18px;
+			padding: 32px 24px 28px;
+		}
+
+		.site-footer__row {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.site-footer__row--brand {
+			display: flex;
+		}
+
+		.site-footer__brand {
+			height: 44px;
+		}
+
+		/* stacked, so the inline separator would dangle at the end of a line */
+		.site-footer__sep {
+			display: none;
+		}
+	}
+</style>

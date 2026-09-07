@@ -1,0 +1,16 @@
+---
+interface Props {
+	text: string;
+	href: string;
+	size?: 'small' | 'medium' | 'large' | undefined;
+	variant?: 'primary' | 'secondary' | 'cream' | undefined;
+	class?: string | undefined;
+}
+
+const { text, href, size = 'medium', variant = 'primary', class: className } = Astro.props;
+---
+{/* .btn lives in styles/button.css: the forms need it on a real <button> */}
+<a class:list={['btn', `btn--${size}`, `btn--${variant}`, className]} href={href}>
+	<span class="btn__text">{text}</span>
+	<span class="btn__arrow" aria-hidden="true"></span>
+</a>
