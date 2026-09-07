@@ -1,15 +1,63 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
-  --color-brand: #004225;
-  --color-accent: #C6A15B;
-  --color-accent-bright: #fdd489;
-  --color-white: #ffffff;
-  --color-black: #000000;
-  --color-text: #f5efdfcc;
+  /* Base channels — compose any alpha with rgb(var(--rgb-*) / N%) */
+  --rgb-deep: 0 48 29;              /* #00301d */
+  --rgb-brand: 0 66 37;             /* #004225 */
+  --rgb-void: 0 21 16;              /* #001510 */
+  --rgb-cream: 245 239 223;         /* #f5efdf */
+  --rgb-accent: 198 161 91;         /* #c6a15b */
+  --rgb-accent-bright: 253 212 137; /* #fdd489 */
+  --rgb-gold-deep: 138 109 36;      /* #8a6d24 */
+  --rgb-ink: 18 16 10;              /* #12100a */
+  --rgb-white: 255 255 255;
+  --rgb-black: 0 0 0;
+
+  /* Brand */
+  --color-brand: rgb(var(--rgb-brand));
+  --color-brand-deep: rgb(var(--rgb-deep));
+  --color-brand-light: #0a5c39;
+  --color-void: rgb(var(--rgb-void));
+  --color-accent: rgb(var(--rgb-accent));
+  --color-accent-bright: rgb(var(--rgb-accent-bright));
+
+  /* gold reads too light on the cream chapters, so those use the deep tones */
+  --color-gold-deep: rgb(var(--rgb-gold-deep));
+  --color-gold-link: #7a5f16;
+  --color-cream: rgb(var(--rgb-cream));
+  --color-ink: rgb(var(--rgb-ink));
+  --color-ink-soft: #3d2f10;
+  --color-white: #fff;
+  --color-black: #000;
+  --color-text: rgb(var(--rgb-cream) / 80%);
+  --color-danger: #e2725b;
+  --color-danger-soft: #f0a08c;
+
+  /* Surfaces */
+  --surface-scrim: rgb(var(--rgb-black) / 30%);  /* nav + hero buttons */
+  --surface-panel: rgb(var(--rgb-deep) / 45%);   /* cards on dark green */
+  --surface-veil: rgb(var(--rgb-deep) / 28%);    /* slots, chips, inputs */
+  --surface-light: rgb(var(--rgb-white) / 45%);  /* cards on cream */
+
+  /* Borders */
+  --border-accent: rgb(var(--rgb-accent) / 45%);
+  --border-accent-soft: rgb(var(--rgb-accent) / 30%);
+  --border-accent-dash: rgb(var(--rgb-accent) / 70%);
+  --border-cream: rgb(var(--rgb-cream) / 28%);
+  --border-cream-soft: rgb(var(--rgb-cream) / 18%);
+  --border-cream-faint: rgb(var(--rgb-cream) / 16%);
+  --border-deep-faint: rgb(var(--rgb-deep) / 16%);
+
+  /* Ink on the bright chapters */
+  --text-on-cream: rgb(var(--rgb-deep) / 82%);
+  --text-on-gold: rgb(var(--rgb-ink) / 82%);
+  --text-dim: rgb(var(--rgb-cream) / 55%);
+
+  /* Type */
   --font-body: 'Manrope', sans-serif;
   --font-heading: 'Space Grotesk', sans-serif;
 
+  /* Type scale */
   --text-base: 1rem;
   --text-lg: 1.125rem;
   --text-xl: 1.25rem;
@@ -22,6 +70,7 @@
   --text-8xl: 6rem;
   --text-9xl: 8rem;
 
+  /* Line heights, paired to the type scale above */
   --leading-base: 1.5rem;
   --leading-lg: 1.75rem;
   --leading-xl: 1.75rem;
@@ -33,6 +82,31 @@
   --leading-7xl: 4.5rem;
   --leading-8xl: 6rem;
   --leading-9xl: 8rem;
+
+  /* Page background gradients — swap any page between these freely */
+  --bg-paddock: radial-gradient(120% 90% at 80% 15%, var(--color-brand-light) 0%, var(--color-brand) 46%, var(--color-brand-deep) 100%);
+  --bg-carbon:
+    radial-gradient(80% 60% at 100% 0%, rgb(var(--rgb-accent) / 18%) 0%, transparent 60%),
+    linear-gradient(160deg, #005a32 0%, var(--color-brand) 40%, var(--color-brand-deep) 72%, #001a10 100%);
+  --bg-mesh:
+    radial-gradient(55% 45% at 12% 8%, var(--color-brand-light) 0%, transparent 70%),
+    radial-gradient(45% 40% at 88% 22%, rgb(var(--rgb-accent) / 22%) 0%, transparent 72%),
+    radial-gradient(70% 60% at 50% 100%, var(--color-brand-deep) 0%, transparent 75%),
+    var(--color-brand);
+  --bg-dawn: linear-gradient(180deg, var(--color-brand-deep) 0%, var(--color-brand) 45%, var(--color-brand-light) 78%, #177a4c 100%);
+  --bg-sweep: conic-gradient(from 210deg at 70% 30%, var(--color-brand-deep) 0deg, var(--color-brand) 90deg, var(--color-brand-light) 170deg, var(--color-brand) 250deg, var(--color-brand-deep) 360deg);
+  --bg-void: radial-gradient(100% 80% at 50% 0%, var(--color-brand) 0%, var(--color-brand-deep) 45%, var(--color-void) 100%);
+  --bg-flat: var(--color-brand);
+
+  /* Bright chapter backgrounds — see .section--bright / .section--accent */
+  --bg-cream: linear-gradient(165deg, #f7f2e4 0%, #efe6cf 55%, #e7d9b8 100%);
+  --bg-gold: linear-gradient(165deg, #d9b268 0%, var(--color-accent) 55%, #a8843f 100%);
+
+  /* Icons */
+  --icon-xs: 16px;
+  --icon-sm: 18px;
+  --icon-md: 24px;
+  --icon-lg: 32px;
 }
 
 html {
@@ -59,14 +133,59 @@ h1 {
   font-family: var(--font-heading);
 }
 
-.text-base { font-size: var(--text-base); line-height: var(--leading-base); }
-.text-lg { font-size: var(--text-lg); line-height: var(--leading-lg); }
-.text-xl { font-size: var(--text-xl); line-height: var(--leading-xl); }
-.text-2xl { font-size: var(--text-2xl); line-height: var(--leading-2xl); }
-.text-3xl { font-size: var(--text-3xl); line-height: var(--leading-3xl); }
-.text-4xl { font-size: var(--text-4xl); line-height: var(--leading-4xl); }
-.text-5xl { font-size: var(--text-5xl); line-height: var(--leading-5xl); }
-.text-6xl { font-size: var(--text-6xl); line-height: var(--leading-6xl); }
-.text-7xl { font-size: var(--text-7xl); line-height: var(--leading-7xl); }
-.text-8xl { font-size: var(--text-8xl); line-height: var(--leading-8xl); }
-.text-9xl { font-size: var(--text-9xl); line-height: var(--leading-9xl); }
+
+/* Utility classes for text sizes, paired to the type scale above */
+.text-base {
+  font-size: var(--text-base);
+  line-height: var(--leading-base);
+}
+
+.text-lg {
+  font-size: var(--text-lg);
+  line-height: var(--leading-lg);
+}
+
+.text-xl {
+  font-size: var(--text-xl);
+  line-height: var(--leading-xl);
+}
+
+.text-2xl {
+  font-size: var(--text-2xl);
+  line-height: var(--leading-2xl);
+}
+
+.text-3xl {
+  font-size: var(--text-3xl);
+  line-height: var(--leading-3xl);
+}
+
+.text-4xl {
+  font-size: var(--text-4xl);
+  line-height: var(--leading-4xl);
+}
+
+.text-5xl {
+  font-size: var(--text-5xl);
+  line-height: var(--leading-5xl);
+}
+
+.text-6xl {
+  font-size: var(--text-6xl);
+  line-height: var(--leading-6xl);
+}
+
+.text-7xl {
+  font-size: var(--text-7xl);
+  line-height: var(--leading-7xl);
+}
+
+.text-8xl {
+  font-size: var(--text-8xl);
+  line-height: var(--leading-8xl);
+}
+
+.text-9xl {
+  font-size: var(--text-9xl);
+  line-height: var(--leading-9xl);
+}
