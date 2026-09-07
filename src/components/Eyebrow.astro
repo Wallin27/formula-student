@@ -1,0 +1,103 @@
+---
+interface Props {
+	text: string;
+	/** A single trailing stripe, or one on each side of the text. */
+	stripes?: 1 | 2 | undefined;
+	align?: 'start' | 'center' | undefined;
+	/** 'deep' is the darker gold that stays readable on the cream chapters. */
+	tone?: 'gold' | 'deep' | undefined;
+	/** 'md' for section headers, 'sm' for the page heroes. */
+	size?: 'sm' | 'md' | undefined;
+	/** Spacing against the neighbour it is introducing. */
+	spacing?: 'below' | 'above' | 'none' | undefined;
+	/** For aria-labelledby, when the eyebrow is what names a section. */
+	id?: string | undefined;
+}
+
+const {
+	text,
+	stripes = 1,
+	align = 'start',
+	tone = 'gold',
+	size = 'md',
+	spacing = 'below',
+	id,
+} = Astro.props;
+---
+<div
+	class="eyebrow"
+	data-align={align}
+	data-tone={tone}
+	data-size={size}
+	data-spacing={spacing}
+>
+	<span class="eyebrow__stripe"></span>
+	<p class="eyebrow__text" id={id}>{text}</p>
+	{stripes === 2 && <span class="eyebrow__stripe"></span>}
+</div>
+
+<style>
+	.eyebrow {
+		display: flex;
+		align-items: center;
+	}
+
+	.eyebrow[data-align='center'] {
+		justify-content: center;
+	}
+
+	.eyebrow[data-size='md'] {
+		gap: 12px;
+	}
+
+	.eyebrow[data-size='sm'] {
+		gap: 16px;
+	}
+
+	.eyebrow[data-spacing='below'] {
+		margin-bottom: 28px;
+	}
+
+	.eyebrow[data-spacing='above'] {
+		margin-top: 16px;
+	}
+
+	.eyebrow[data-tone='gold'] {
+		--eyebrow-ink: var(--color-accent);
+	}
+
+	.eyebrow[data-tone='deep'] {
+		--eyebrow-ink: var(--color-gold-deep);
+	}
+
+	.eyebrow__stripe {
+		flex: none;
+		width: 80px;
+		height: 1px;
+		background: var(--eyebrow-ink);
+	}
+
+	.eyebrow__text {
+		margin: 0;
+
+		/* fixes gap caused by letter-spacing */
+		margin-right: -0.28em;
+		color: var(--eyebrow-ink);
+		letter-spacing: 0.28em;
+		text-transform: uppercase;
+	}
+
+	.eyebrow[data-size='md'] .eyebrow__text {
+		font-size: var(--text-base);
+	}
+
+	.eyebrow[data-size='sm'] .eyebrow__text {
+		font-size: 0.8125rem;
+	}
+
+	@media (max-width: 720px) {
+		.eyebrow[data-size='sm'] .eyebrow__stripe {
+			width: 44px;
+		}
+	}
+</style>
