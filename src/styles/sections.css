@@ -1,0 +1,198 @@
+/* Shared section system: full-viewport chapters, angled cuts, gold edges */
+
+:root {
+	--cut-depth: 90px;
+}
+
+.section {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	min-height: 100dvh;
+	padding: 140px 60px;
+	overflow: hidden;
+}
+
+.section__inner {
+	position: relative;
+	z-index: 2;
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+/* ----- Chapter joins ----- */
+
+/* straight gold hairline at the top edge */
+.section--rule {
+	border-top: 1px solid rgb(var(--rgb-accent) / 32%);
+}
+
+/* the section pulls up over the previous one and slices across it */
+.section--cut {
+	margin-top: calc(var(--cut-depth) * -1);
+	padding-top: calc(140px + var(--cut-depth));
+	clip-path: polygon(0 var(--cut-depth), 100% 0, 100% 100%, 0 100%);
+}
+
+/* grow by the cut depth so the diagonal lands below the fold on load */
+.hero:has(+ .section--cut),
+.section:has(+ .section--cut) {
+	min-height: calc(100dvh + var(--cut-depth));
+	padding-bottom: calc(140px + var(--cut-depth));
+}
+
+/* gold line running along the diagonal edge */
+.section--cut::before {
+	position: absolute;
+	inset: 0;
+	z-index: 3;
+	background: linear-gradient(
+		90deg,
+		rgb(var(--rgb-accent) / 20%) 0%,
+		var(--color-accent) 45%,
+		rgb(var(--rgb-accent-bright) / 90%) 100%
+	);
+	clip-path: polygon(
+		0 var(--cut-depth),
+		100% 0,
+		100% 2px,
+		0 calc(var(--cut-depth) + 2px)
+	);
+	content: '';
+	pointer-events: none;
+}
+
+/* mirrored slice, for alternating rhythm down the page */
+.section--cut-reverse {
+	clip-path: polygon(0 0, 100% var(--cut-depth), 100% 100%, 0 100%);
+}
+
+.section--cut-reverse::before {
+	clip-path: polygon(
+		0 0,
+		100% var(--cut-depth),
+		100% calc(var(--cut-depth) + 2px),
+		0 2px
+	);
+}
+
+/* soft blend so a chapter fades out of the one above */
+.section--blend::after {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	z-index: 1;
+	height: 220px;
+	background: linear-gradient(180deg, rgb(var(--rgb-void) / 55%) 0%, transparent 100%);
+	content: '';
+	pointer-events: none;
+}
+
+/* ----- Bright variant ----- */
+
+/* cream chapter — the friendly break in a page of dark green */
+.section--bright {
+	background: var(--bg-cream);
+	color: var(--color-brand-deep);
+}
+
+.section--bright .section__title {
+	color: var(--color-brand-deep);
+}
+
+.section--bright .section__text {
+	color: var(--text-on-cream);
+}
+
+/* accent chapter — full gold, use sparingly */
+.section--accent {
+	background: var(--bg-gold);
+	color: var(--color-ink);
+}
+
+.section--accent .section__title {
+	color: var(--color-ink);
+}
+
+.section--accent .section__text {
+	color: var(--text-on-gold);
+}
+
+/* ----- Shared inner pieces ----- */
+
+/* the eyebrow row now lives in components/Eyebrow.astro */
+
+.section__title {
+	margin: 0 0 32px;
+	color: var(--color-white);
+	font-size: clamp(2.25rem, 4.2vw, var(--text-6xl));
+	line-height: 1.06;
+	font-family: var(--font-heading);
+	text-transform: uppercase;
+	text-wrap: balance;
+	overflow-wrap: break-word;
+}
+
+.section__text {
+	max-width: 62ch;
+	margin: 0;
+	color: var(--color-text);
+	font-size: var(--text-xl);
+	line-height: 2rem;
+}
+
+/* full-bleed image behind a chapter */
+.section__bg {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+}
+
+.section__bg-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0.3;
+}
+
+.section__bg::after {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(
+		180deg,
+		rgb(var(--rgb-deep) / 84%) 0%,
+		rgb(var(--rgb-brand) / 62%) 50%,
+		rgb(var(--rgb-deep) / 90%) 100%
+	);
+	content: '';
+}
+
+@media (max-width: 900px) {
+	:root {
+		--cut-depth: 48px;
+	}
+
+	.section {
+		min-height: auto;
+		padding: 96px 24px;
+	}
+
+	.hero:has(+ .section--cut),
+	.section:has(+ .section--cut) {
+		min-height: auto;
+		padding-bottom: calc(96px + var(--cut-depth));
+	}
+
+	.section__title {
+		font-size: var(--text-4xl);
+		line-height: var(--leading-4xl);
+	}
+
+	.section__text {
+		font-size: var(--text-lg);
+		line-height: var(--leading-2xl);
+	}
+}

@@ -1,0 +1,89 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+/**
+ * The interior-page shell: one background, one centred column. Pages built out
+ * of full-viewport "chapters" use BaseLayout and
+ * the .section system directly instead.
+ *
+ * Slots: "background" for a full-bleed media layer behind the content, "after"
+ * for full-bleed chapters below the column, and the default slot for the column
+ * itself.
+ */
+interface Props {
+	title?: string | undefined;
+	description?: string | undefined;
+	/** Name of a --bg-* token from global.css. */
+	background?: 'flat' | 'paddock' | 'carbon' | 'void' | 'dawn' | 'mesh' | 'sweep' | 'cream' | 'gold' | 'sweep' | undefined;
+	/** 'centered' is the short splash layout. */
+	variant?: 'default' | 'centered' | undefined;
+	class?: string | undefined;
+}
+
+const {
+	title,
+	description,
+	background = 'flat',
+	variant = 'default',
+	class: className,
+} = Astro.props;
+---
+<BaseLayout title={title} description={description}>
+	<section
+		class:list={['page', `page--${variant}`, className]}
+		style={`--page-bg: var(--bg-${background});`}
+	>
+		<slot name="background" />
+
+		<div class="page__inner">
+			<slot />
+		</div>
+	</section>
+
+	{/* full-bleed chapters below the main column, e.g. a .section--bright block */}
+	<slot name="after" />
+</BaseLayout>
+
+<style>
+	.page {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		background: var(--page-bg);
+	}
+
+	.page__inner {
+		position: relative;
+		z-index: 1; /* content sits above the background slot */
+		max-width: 1240px;
+		margin: 0 auto;
+		padding: 160px 60px 140px;
+	}
+
+	.page--centered {
+		display: grid;
+		place-items: center;
+		min-height: 100dvh;
+		padding: 0 60px 120px;
+		text-align: center;
+	}
+
+	.page--centered .page__inner {
+		max-width: 58ch;
+		padding: 0;
+	}
+
+	@media (max-width: 720px) {
+		.page__inner {
+			padding: 110px 24px 100px;
+		}
+
+		.page--centered {
+			padding: 130px 24px 90px;
+		}
+
+		.page--centered .page__inner {
+			padding: 0;
+		}
+	}
+</style>
