@@ -1,9 +1,473 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import lineup from '@/assets/crowd.jpg';
+import Button from '@/components/Button.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import { foundingSlots, inKind, included, steps } from '@/data/partners';
+import { mailto, site } from '@/data/site';
+import PageLayout from '@/layouts/PageLayout.astro';
 ---
-<BaseLayout
-  title="Partners — Umeå Formula Student"
-  description="The partners powering Umeå Formula Student's electric race car."
+<PageLayout
+	title={`Partners — ${site.name}`}
+	description={`The partners powering ${site.name}'s first electric race car.`}
+	background="flat"
 >
-  <h1>Partners</h1>
-</BaseLayout>
+	<div class="bg" aria-hidden="true" slot="background">
+		<Image
+			class="bg__img"
+			src={lineup}
+			alt=""
+			widths={[960, 1440, 1920, 2560]}
+			sizes="100vw"
+			decoding="async"
+		/>
+	</div>
+
+	<header class="intro">
+		<h1 class="title">Our partners</h1>
+
+		<Eyebrow text="Partners & Sponsors" stripes={2} align="center" size="sm" spacing="above" />
+
+		<p class="lead">
+			Season one is being built from nothing. Here are all the kind people and
+			companies that share our vision and are helping us make it a reality.
+		</p>
+	</header>
+<!--  
+	<section class="tier" aria-labelledby="tier-founding">
+		<h2 class="tier__title" id="tier-founding">Founding Partners</h2>
+		<p class="tier__meta">
+			Nose &amp; sidepod placement // name in the team line // 100 000 SEK+
+		</p>
+		<ul class="slots" role="list">
+			{foundingSlots.map((number) => (
+				<li class="slot">
+					<span class="slot__number">{number}</span>
+					<span class="slot__label">Your logo here</span>
+				</li>
+			))}
+		</ul>
+	</section>
+
+	<section class="tier" aria-labelledby="tier-inkind">
+		<h2 class="tier__title" id="tier-inkind">We want your help!</h2>
+		<p class="tier__meta">
+			Whether it's machining, material, licences, transport, or mentorship we
+			want to hear from you. Every contribution is valuable and appreciated,
+			and we will make sure to give you credit for it.
+		</p>
+		<ul class="chips" role="list">
+			{inKind.map((item) => <li class="chip">{item}</li>)}
+		</ul>
+	</section>
+-->
+	<section class="cta" aria-labelledby="partners-cta">
+		<p class="cta__eyebrow" id="partners-cta">Want to join our vision?</p>
+		<p class="cta__text">
+			Every krona and every donated hour goes into the first Formula Student
+			car ever built in Umeå. In return you get placement on the car, access
+			to the students behind it, and a founding credit that can only be
+			given once.
+		</p>
+		<div class="cta__btn">
+			<Button href="/contact" text="Contact us" size="large" />
+		</div>
+	</section>
+
+	<section
+		class="section section--bright section--cut apply"
+		aria-labelledby="apply-heading"
+		slot="after"
+	>
+		<div class="section__inner">
+			<Eyebrow text="Apply for sponsorship" tone="deep" stripes={2} />
+
+			<h2 id="apply-heading" class="apply__title">Become a partner</h2>
+			<p class="apply__intro">
+				Backing us does not have to start with a budget meeting. Tell us what
+				you can offer: money, material, machine time or expertise and we
+				will build the partnership around it.
+			</p>
+
+			<ol class="apply__steps">
+				{steps.map((step) => (
+					<li class="apply__step">
+						<h3 class="apply__step-title">{step.title}</h3>
+						<p class="apply__step-text">{step.text}</p>
+					</li>
+				))}
+			</ol>
+
+			<div class="apply__panel">
+				<div>
+					<p class="apply__panel-title">What we can offer</p>
+					<!-- <ul class="apply__list" role="list">
+						{included.map((item) => <li>{item}</li>)}
+					</ul>
+					-->
+				</div>
+
+				<div>
+					<p class="apply__panel-title">Start the conversation</p>
+					<p class="apply__step-text">
+						We answer every mail, and we are happy to come to you and present
+						the project in person.
+					</p>
+					<p class="apply__contact">
+						<a class="apply__link" href={mailto}>{site.email}</a>
+					</p>
+					<Button href="/contact" text="Send us a message" variant="cream" />
+				</div>
+			</div>
+		</div>
+	</section>
+</PageLayout>
+
+<style>
+	/* the media layer sits outside .page__inner, behind the content */
+	.bg {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+	}
+
+	.bg__img {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+
+		/* a viewport-relative band, not a %: the section grows as sponsors are added */
+		height: min(125vh, 1300px);
+		object-fit: cover;
+		object-position: center 35%;
+		opacity: 0.38; /* 0.30-0.45 keeps body text readable */
+		mix-blend-mode: luminosity;
+		-webkit-mask-image: linear-gradient(to bottom, var(--color-black) 0%, var(--color-black) 40%, transparent 100%);
+		mask-image: linear-gradient(to bottom, var(--color-black) 0%, var(--color-black) 40%, transparent 100%);
+	}
+
+	/* darkens the top so the white title and gold eyebrow keep their contrast */
+	.bg::after {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			to bottom,
+			rgb(var(--rgb-deep) / 62%) 0%,
+			transparent 30%
+		);
+		content: '';
+	}
+
+	/* ----- Intro ----- */
+
+	.intro {
+		margin-bottom: 160px;
+		text-align: center;
+	}
+
+	.title {
+		margin: 0;
+		font-size: clamp(2.75rem, 8vw, var(--text-8xl));
+		line-height: 1.05;
+		color: var(--color-white);
+		text-transform: uppercase;
+	}
+
+	.lead {
+		max-width: 58ch;
+		margin: 32px auto 0;
+		font-size: var(--text-lg);
+		line-height: var(--leading-2xl);
+		color: var(--color-white);
+	}
+
+	/* ----- Tiers ----- */
+
+	.tier {
+		margin-bottom: 140px;
+	}
+
+	.tier__title {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-size: clamp(1.75rem, 3.5vw, var(--text-4xl));
+		line-height: 1.2;
+		color: var(--color-white);
+	}
+
+	.tier__meta {
+		margin: 8px 0 0;
+		font-size: var(--text-base);
+		color: var(--color-accent);
+	}
+
+	/* ----- Empty sponsor slots ----- */
+
+	.slots {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 20px;
+		margin: 48px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.slot {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+		aspect-ratio: 16 / 9;
+		border: 1px dashed var(--border-accent-dash);
+		background: var(--surface-veil);
+		text-align: center;
+	}
+
+	.slot__number {
+		font-family: var(--font-heading);
+		font-size: var(--text-2xl);
+		line-height: 1;
+		color: var(--color-accent);
+	}
+
+	.slot__label {
+		font-size: 0.6875rem;
+		letter-spacing: 0.22em;
+		text-transform: uppercase;
+		color: var(--color-accent);
+	}
+
+	/* ----- In-kind chips ----- */
+
+	.chips {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		margin: 48px 0 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.chip {
+		padding: 12px 20px;
+		border: 1px solid var(--border-cream);
+		background: var(--surface-veil);
+		font-size: var(--text-base);
+		color: var(--color-white);
+	}
+
+	/* ----- Closing call to action ----- */
+
+	/* grid, not flex, so the button centres against the paragraph alone */
+	.cta {
+		display: grid;
+		grid-template-columns: minmax(0, 46ch) auto;
+		justify-content: center;
+		align-items: center;
+		column-gap: 96px;
+	}
+
+	.cta__eyebrow {
+		grid-column: 1;
+		grid-row: 1;
+		margin: 0;
+
+		/* letter-spacing leaves a trailing space after the last glyph */
+		margin-right: -0.28em;
+		font-size: 0.8125rem;
+		letter-spacing: 0.28em;
+		text-transform: uppercase;
+		color: var(--color-accent);
+	}
+
+	.cta__text {
+		grid-column: 1;
+		grid-row: 2;
+		margin: 24px 0 0;
+		font-size: var(--text-lg);
+		line-height: var(--leading-2xl);
+		color: var(--color-white);
+	}
+
+	.cta__btn {
+		grid-column: 2;
+		grid-row: 2; /* shares the paragraph's row, so it centres against it */
+		align-self: center;
+	}
+
+	/* :global because Button.astro renders the <a>, so it lacks this scope hash */
+	.cta__btn :global(.btn) {
+		letter-spacing: 0.22em;
+	}
+
+	/* ----- "Become a partner" chapter ----- */
+
+	.apply__title {
+		margin: 0 0 16px;
+		font-size: var(--text-5xl);
+		line-height: var(--leading-5xl);
+		font-family: var(--font-heading);
+		text-transform: uppercase;
+	}
+
+	.apply__intro {
+		max-width: 62ch;
+		margin: 0 0 64px;
+		font-size: var(--text-lg);
+		line-height: var(--leading-2xl);
+	}
+
+	.apply__steps {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+		gap: 32px;
+		margin: 0 0 64px;
+		padding: 0;
+		list-style: none;
+	}
+
+	.apply__step {
+		position: relative;
+		padding-top: 28px;
+		border-top: 1px solid rgb(var(--rgb-gold-deep) / 45%);
+	}
+
+	.apply__step::before {
+		display: block;
+		margin-bottom: 14px;
+		color: var(--color-gold-deep);
+		font-size: 0.8rem;
+		font-family: var(--font-heading);
+		letter-spacing: 0.18em;
+	}
+
+	.apply__step-title {
+		margin: 0 0 10px;
+		color: var(--color-brand-deep);
+		font-size: var(--text-xl);
+		line-height: var(--leading-xl);
+		font-family: var(--font-heading);
+	}
+
+	.apply__step-text {
+		margin: 0;
+		color: rgb(var(--rgb-deep) / 72%);
+		font-size: var(--text-base);
+		line-height: var(--leading-2xl);
+	}
+
+	.apply__panel {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		gap: 48px;
+		padding: 40px;
+		border: 1px solid var(--border-deep-faint);
+		border-radius: 14px;
+		background: var(--surface-light);
+	}
+
+	.apply__panel-title {
+		margin: 0 0 20px;
+		color: var(--color-gold-deep);
+		font-size: 0.8rem;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+	}
+
+	.apply__list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	.apply__list li {
+		position: relative;
+		padding-left: 22px;
+		margin-bottom: 12px;
+		color: var(--text-on-cream);
+		font-size: var(--text-base);
+		line-height: var(--leading-2xl);
+	}
+
+	.apply__list li::before {
+		position: absolute;
+		top: 0.7em;
+		left: 0;
+		width: 8px;
+		height: 1px;
+		background: var(--color-gold-deep);
+		content: '';
+	}
+
+	.apply__contact {
+		margin: 24px 0 28px;
+		font-size: var(--text-base);
+		line-height: var(--leading-2xl);
+	}
+
+	.apply__link {
+		color: var(--color-gold-link);
+		border-bottom: 1px solid rgb(var(--rgb-gold-deep) / 50%);
+	}
+
+	/* fallback for engines without blend modes: a plain green veil */
+	@supports not (mix-blend-mode: luminosity) {
+		.bg__img {
+			opacity: 0.25;
+			filter: grayscale(1);
+		}
+	}
+
+	@media (max-width: 900px) {
+		.apply__title {
+			font-size: var(--text-3xl);
+			line-height: var(--leading-3xl);
+		}
+
+		.apply__panel {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 32px;
+			padding: 28px;
+		}
+	}
+
+	@media (max-width: 720px) {
+		.intro {
+			margin-bottom: 100px;
+		}
+
+		.tier {
+			margin-bottom: 90px;
+		}
+
+		/* auto-fit would drop to one column and make each 16:9 slot ~190px tall */
+		.slots {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 12px;
+			margin-top: 32px;
+		}
+
+		.chips {
+			margin-top: 32px;
+			gap: 8px;
+		}
+
+		.chip {
+			padding: 10px 14px;
+			font-size: 0.875rem;
+		}
+
+		.cta {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.cta__btn {
+			grid-column: 1;
+			grid-row: 3;
+			justify-self: start;
+			margin-top: 32px;
+		}
+	}
+</style>

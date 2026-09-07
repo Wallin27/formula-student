@@ -1,11 +1,27 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import { site } from '@/data/site';
+import PageLayout from '@/layouts/PageLayout.astro';
 ---
-<BaseLayout
-  title="Events — Umeå Formula Student"
-  description="Upcoming competitions, testing days, and events for Umeå Formula Student."
+<PageLayout
+	title={`Events — ${site.name}`}
+	description={`${site.name}'s first season is still being built. Test days and competitions will be announced here.`}
+	background="void"
+	variant="centered"
 >
-  <div class="hero__banner">
-     <h1>Events</h1>
-  </div>
-</BaseLayout>
+	<Eyebrow text="Under construction" stripes={2} align="center" size="sm" spacing="none" />
+
+	<p class="lead">
+		Our first season is still being built, and there is nothing on the
+		calendar yet. If we have anything to announce, it will be posted here.
+	</p>
+</PageLayout>
+
+<style>
+	.lead {
+		margin: 24px 0 0;
+		font-size: var(--text-lg);
+		line-height: var(--leading-2xl);
+		color: var(--color-text);
+	}
+</style>

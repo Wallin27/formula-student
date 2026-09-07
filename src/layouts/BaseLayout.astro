@@ -1,34 +1,35 @@
 ---
 import '@/styles/global.css';
-import Nav from '@/components/Nav.tsx';
-import Footer from '@/components/Footer.tsx';
+import '@/styles/sections.css';
+import '@/styles/button.css';
+import Footer from '@/components/Footer.astro';
+import Nav from '@/components/Nav.astro';
+import { site } from '@/data/site';
 
 interface Props {
-	title?: string;
-	description?: string;
+	title?: string | undefined;
+	description?: string | undefined;
 }
 
 const {
-	title = 'Umeå Formula Student- Engineered in the North', 
-	description = 'Umeå Formula Student — a student-run Formula Student motorsport team from Umeå Universitet, designing and racing an electric all-wheel-drive race car.',	
+	title = `${site.name} — Engineered in the North`,
+	description = `${site.name} — a student-run Formula Student motorsport team from Umeå Universitet, designing and racing an electric all-wheel-drive race car.`,
 } = Astro.props;
-
-const currentPath = Astro.url.pathname;
 ---
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-    <meta name="description" content={description} />
-    <slot name="head" />
-  </head>
-  <body>
-    <Nav currentPath={currentPath} />
-    <main>
-      <slot />
-    </main>
-    <Footer />
-  </body>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<slot name="head" />
+	</head>
+	<body>
+		<Nav />
+		<main>
+			<slot />
+		</main>
+		<Footer />
+	</body>
 </html>

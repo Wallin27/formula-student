@@ -1,9 +1,352 @@
 ---
+import Button from '@/components/Button.astro';
+import CallToAction from '@/components/CallToAction.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import { site } from '@/data/site';
+import { subgroups } from '@/data/subgroups';
+import { members, milestones } from '@/data/team';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 <BaseLayout
-  title="Team — Umeå Formula Student"
-  description="Meet the students behind Umeå Formula Student's electric all-wheel-drive race car."
+	title={`Team — ${site.name}`}
+	description={`The students behind ${site.name}, and how the team is organised.`}
 >
-  <h1>Team</h1>
+	<!-- 1. Team intro -->
+	<section class="section team" aria-labelledby="team-heading">
+		<div class="section__inner">
+			<Eyebrow text="The team" stripes={2} />
+
+			<h1 id="team-heading" class="section__title">The team</h1>
+
+			<p class="section__text">
+				We are students from different programmes at Umeå University, building
+				the first Formula Student car in the north from an empty workshop.
+			</p>
+		</div>
+	</section>
+
+	<!-- 2. Timeline -->
+	<section
+		class="section section--cut timeline"
+		aria-labelledby="timeline-heading"
+	>
+		<div class="section__inner">
+			<h2 id="timeline-heading" class="timeline__title">Our timeline</h2>
+
+			<ol class="timeline__list">
+				{milestones.map((item) => (
+					<li class:list={['timeline__item', item.done && 'timeline__item--done']}>
+						<span class="timeline__date">{item.date}</span>
+						<h3 class="timeline__heading">{item.heading}</h3>
+						<p class="timeline__text">{item.text}</p>
+					</li>
+				))}
+			</ol>
+		</div>
+	</section>
+
+	<!-- 3. Members -->
+	<section
+		class="section section--bright section--cut section--cut-reverse members"
+		aria-labelledby="members-heading"
+	>
+		<div class="section__inner">
+			<h2 id="members-heading" class="members__title">The people</h2>
+			<p class="members__intro">
+				The founding members putting the team together. This list is work in progress and will be updated groups are formed and more members join. 
+			</p>
+
+			<div class="members__grid">
+				{members.map((person) => (
+					<article class="member">
+						<div class="member__photo">
+							<span class="member__initials" aria-hidden="true">
+								{person.initials}
+							</span>
+						</div>
+						<div class="member__body">
+							<h3 class="member__name">{person.name}</h3>
+							<p class="member__role">{person.role}</p>
+						</div>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- 4. Subgroups -->
+	<section
+		class="section section--cut subgroups"
+		aria-labelledby="subgroups-heading"
+	>
+		<div class="section__inner">
+			<h2 id="subgroups-heading" class="subgroups__title">Subgroups</h2>
+			<p class="subgroups__intro">
+				The car is built by four groups that each own one part of it. These are
+				the same choices you get in the application form.
+			</p>
+
+			<div class="subgroups__grid">
+				{subgroups.map((group) => (
+					<article class="subgroup">
+						<h3 class="subgroup__name">{group.name}</h3>
+						<p class="subgroup__text">{group.text}</p>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<!-- 5. Recruitment link -->
+	<CallToAction
+		id="team-cta-heading"
+		title="Want in?"
+		text="Recruitment is open across every subgroup. No experience required — only that you want to learn, and that you show up."
+		class="section--cut-reverse"
+	>
+		<Button href="/join-team" text="Join us" size="large" />
+		<Button href="/contact" text="Ask us anything" size="large" variant="secondary" />
+	</CallToAction>
 </BaseLayout>
+
+<style>
+	.team {
+		background: var(--bg-dawn);
+	}
+
+	/* ----- Timeline ----- */
+
+	.timeline {
+		background: var(--bg-carbon);
+	}
+
+	.timeline__title {
+		margin: 0 0 64px;
+		color: var(--color-white);
+		font-size: var(--text-5xl);
+		line-height: var(--leading-5xl);
+		font-family: var(--font-heading);
+		text-transform: uppercase;
+	}
+
+	.timeline__list {
+		position: relative;
+		margin: 0;
+		padding: 0 0 0 40px;
+		list-style: none;
+	}
+
+	/* the timeline spine */
+	.timeline__list::before {
+		position: absolute;
+		top: 8px;
+		bottom: 8px;
+		left: 5px;
+		width: 1px;
+		background: linear-gradient(
+			180deg,
+			var(--color-accent) 0%,
+			rgb(var(--rgb-accent) / 25%) 100%
+		);
+		content: '';
+	}
+
+	.timeline__item {
+		position: relative;
+		padding-bottom: 44px;
+	}
+
+	.timeline__item:last-child {
+		padding-bottom: 0;
+	}
+
+	.timeline__item::before {
+		position: absolute;
+		top: 7px;
+		left: -40px;
+		width: 11px;
+		height: 11px;
+		border: 1px solid var(--color-accent);
+		border-radius: 50%;
+		background: var(--color-brand-deep);
+		content: '';
+	}
+
+	/* completed milestones get a filled marker */
+	.timeline__item--done::before {
+		background: var(--color-accent);
+	}
+
+	.timeline__date {
+		display: block;
+		margin-bottom: 6px;
+		color: var(--color-accent);
+		font-size: 0.8rem;
+		letter-spacing: 0.18em;
+		text-transform: uppercase;
+	}
+
+	.timeline__heading {
+		margin: 0 0 8px;
+		color: var(--color-white);
+		font-size: var(--text-2xl);
+		line-height: var(--leading-2xl);
+		font-family: var(--font-heading);
+	}
+
+	.timeline__text {
+		max-width: 58ch;
+		margin: 0;
+		color: rgb(var(--rgb-cream) / 60%);
+		font-size: var(--text-base);
+		line-height: var(--leading-2xl);
+	}
+
+	/* ----- Members ----- */
+
+	/* runs on the bright variant — see styles/sections.css */
+
+	.members__title {
+		margin: 0 0 16px;
+		color: var(--color-brand-deep);
+		font-size: var(--text-5xl);
+		line-height: var(--leading-5xl);
+		font-family: var(--font-heading);
+		text-transform: uppercase;
+	}
+
+	.members__intro {
+		max-width: 62ch;
+		margin: 0 0 64px;
+		color: rgb(var(--rgb-deep) / 80%);
+		font-size: var(--text-lg);
+		line-height: var(--leading-2xl);
+	}
+
+	.members__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 32px;
+	}
+
+	.member {
+		overflow: hidden;
+		border: 1px solid var(--border-deep-faint);
+		border-radius: 14px;
+		background: var(--surface-light);
+	}
+
+	.member__photo {
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		aspect-ratio: 4 / 5;
+		background: linear-gradient(160deg, var(--color-brand-light) 0%, var(--color-brand-deep) 100%);
+	}
+
+	/* placeholder until a real portrait is dropped in */
+	.member__initials {
+		color: rgb(var(--rgb-accent) / 55%);
+		font-size: var(--text-5xl);
+		font-family: var(--font-heading);
+		letter-spacing: 0.06em;
+	}
+
+	.member__body {
+		padding: 24px;
+	}
+
+	.member__name {
+		margin: 0 0 6px;
+		color: var(--color-brand-deep);
+		font-size: var(--text-xl);
+		line-height: var(--leading-xl);
+		font-family: var(--font-heading);
+	}
+
+	.member__role {
+		margin: 0;
+		color: var(--color-gold-deep);
+		font-size: 0.8rem;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+	}
+
+	/* ----- Subgroups ----- */
+
+	.subgroups {
+		background: var(--bg-carbon);
+	}
+
+	.subgroups__title {
+		margin: 0 0 16px;
+		color: var(--color-white);
+		font-size: var(--text-5xl);
+		line-height: var(--leading-5xl);
+		font-family: var(--font-heading);
+		text-transform: uppercase;
+	}
+
+	.subgroups__intro {
+		max-width: 62ch;
+		margin: 0 0 64px;
+		color: var(--color-text);
+		font-size: var(--text-lg);
+		line-height: var(--leading-2xl);
+	}
+
+	.subgroups__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+		gap: 28px;
+	}
+
+	/* the cards carry this chapter — no hover tricks, no numbering */
+	.subgroup {
+		padding: 44px 40px;
+		border: 1px solid var(--border-accent-soft);
+		border-radius: 16px;
+		background: var(--surface-panel);
+	}
+
+	.subgroup__name {
+		margin: 0 0 16px;
+		padding-bottom: 16px;
+		border-bottom: 1px solid var(--border-accent-soft);
+		color: var(--color-white);
+		font-size: var(--text-3xl);
+		line-height: var(--leading-3xl);
+		font-family: var(--font-heading);
+		text-transform: uppercase;
+	}
+
+	.subgroup__text {
+		margin: 0;
+		color: var(--color-text);
+		font-size: var(--text-lg);
+		line-height: var(--leading-2xl);
+	}
+
+	@media (max-width: 900px) {
+		.subgroups__grid {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.subgroup {
+			padding: 32px 24px;
+		}
+
+		.subgroup__name {
+			font-size: var(--text-2xl);
+			line-height: var(--leading-2xl);
+		}
+
+		.timeline__title,
+		.members__title,
+		.subgroups__title {
+			font-size: var(--text-3xl);
+			line-height: var(--leading-3xl);
+		}
+	}
+</style>

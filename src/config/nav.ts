@@ -5,6 +5,7 @@ export interface NavLink {
 
 export const navLinks: readonly NavLink[] = [
 	{href: '/', label: 'Home'},
+	{href: '/formula-student', label: 'Formula Student'},
 	{href: '/team', label: 'Team'},
 	{href: '/partners', label: 'Partners'},
 	{href: '/events', label: 'Events'},

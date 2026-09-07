@@ -1,0 +1,51 @@
+---
+import Button from '@/components/Button.astro';
+import Eyebrow from '@/components/Eyebrow.astro';
+import { site } from '@/data/site';
+import PageLayout from '@/layouts/PageLayout.astro';
+---
+<PageLayout
+	title={`Page not found — ${site.name}`}
+	description="That page does not exist."
+	background="void"
+	variant="centered"
+>
+	<Eyebrow text="Error 404" stripes={2} align="center" size="sm" spacing="none" />
+
+	<h1 class="title">Off the track</h1>
+
+	<p class="lead">
+		That page does not exist — it may have moved, or never been built in the
+		first place. The pit lane is back this way.
+	</p>
+
+	<div class="actions">
+		<Button href="/" text="Back to the start" size="large" />
+		<Button href="/contact" text="Tell us what broke" size="large" variant="secondary" />
+	</div>
+</PageLayout>
+
+<style>
+	.title {
+		margin: 24px 0 0;
+		font-size: clamp(2.75rem, 8vw, var(--text-8xl));
+		line-height: 1.05;
+		color: var(--color-white);
+		text-transform: uppercase;
+	}
+
+	.lead {
+		margin: 24px 0 0;
+		font-size: var(--text-lg);
+		line-height: var(--leading-2xl);
+		color: var(--color-text);
+	}
+
+	.actions {
+		display: flex;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 16px;
+		margin-top: 40px;
+	}
+</style>
