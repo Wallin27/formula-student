@@ -475,6 +475,13 @@ import PageLayout from '@/layouts/PageLayout.astro';
 		.submit-row {
 			flex-direction: column;
 			align-items: stretch;
+			gap: 12px;
+		}
+
+		/* flex-basis follows the main axis, so the row's 26ch width becomes a
+		   ~190px height once this stacks, stranding the button below it */
+		.disclaimer {
+			flex: 0 0 auto;
 		}
 	}
 
