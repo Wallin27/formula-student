@@ -93,7 +93,7 @@
 	justify-items: start;
 	gap: 12px;
 	padding: 36px 32px;
-	border: 1px dashed var(--border-accent-dash);
+	border: 1px solid var(--border-accent-dash);
 	background: var(--surface-veil);
 }
 
