@@ -11,11 +11,11 @@ export interface Subgroup {
 export const subgroups: readonly Subgroup[] = [
 	{
 		name: 'Chassis & Composites',
-		text: 'The frame, the bodywork and everything laid up in carbon. The structure the whole car is built around.',
+		text: 'The frame, the bodywork and everything in between. The structure the whole car is built around.',
 	},
 	{
 		name: 'Suspension & Brakes',
-		text: 'Uprights, wishbones, steering and stopping power — the parts that decide how the car behaves on track.',
+		text: 'Uprights, wishbones, steering and stopping power, the parts that decide how the car behaves on track.',
 	},
 	{
 		name: 'High & Low Voltage',

@@ -89,7 +89,7 @@ export default function ContactForm() {
 	if (status === 'sent') {
 		return (
 			<div className="contact-form__done" role="status">
-				<p className="contact-form__done-title">Thanks — your message is on its way.</p>
+				<p className="contact-form__done-title">Thanks! Your message is on its way.</p>
 				<p className="contact-form__done-text">
 					We read everything that lands in the inbox and will get back to you as soon as we can.
 				</p>

@@ -50,7 +50,7 @@ export const milestones: readonly Milestone[] = [
 export const members: readonly Member[] = [
 	{ name: 'Johan Rainer', role: 'Founder & Suspension / Brakes Lead', initials: 'JR' },
 	{ name: 'Henrique Röbäck Fiusa', role: 'Founder & Business / Marketing Lead', initials: 'HRF' },
-	{ name: 'Noah Grönberg', role: 'Founder & ? / ? Lead', initials: 'NG' },
+	{ name: 'Noah Grönberg', role: 'Founder & High Voltage Lead', initials: 'NG' },
 ];
 
 export const studyYears: readonly string[] = ['1', '2', '3', '4', '5', 'Master', 'Other'];

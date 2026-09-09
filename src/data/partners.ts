@@ -14,6 +14,6 @@ export const steps: readonly PartnerStep[] = [
 	},
 	{
 		title: 'We agree the details',
-		text: 'Cash, parts, hours or services — we shape the partnership around what actually suits you.',
+		text: 'Cash, parts, hours or services, we shape the partnership around what actually suits you.',
 	},
 ];

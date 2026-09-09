@@ -48,7 +48,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 					<p class="section__text">
 						Our goal isn't just to build a car by summer 2027. It's to create
 						an environment where students can grow, learn, and prepare for
-						their future careers. Through hands-on experience in engineering,
+						their future careers. Through hands on experience in engineering,
 						teamwork, and project management, we want every member to leave the
 						team better equipped for the professional world than when they
 						joined.
@@ -97,7 +97,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 					<p class="fs-intro__text">
 						Formula Student is the world's largest engineering design
 						competition. University teams design, build, and race
-						formula-style vehicles, judged on engineering excellence, cost
+						formula style vehicles, judged on engineering excellence, cost
 						efficiency, and performance.
 					</p>
 					<Button
@@ -115,7 +115,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 	<CallToAction
 		id="home-cta-heading"
 		title="Build it with us"
-		text="We are recruiting across every discipline: mechanical, electrical, software, business and design. No experience required."
+		text="We are recruiting across every discipline: mechanical, electrical, software, business, design and more. No experience required."
 	>
 		<Button href="/join-team" text="Submit an application" size="large" />
 		<Button href="/team" text="Learn about the team" size="large" variant="secondary" />
@@ -189,8 +189,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 
 	.hero__lead {
 		font-size: var(--text-lg);
-		line-height: var(--leading-2xl);
+		line-height: var(--leading-base);
 		color: var(--color-text);
+		letter-spacing: 0.05em;
 	}
 
 	/* nowrap buttons set the right column's min-content width, which is what
@@ -258,6 +259,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 		color: var(--color-text);
 		font-size: var(--text-lg);
 		line-height: var(--leading-2xl);
+		letter-spacing: 0.05em;
 	}
 
 	@media (max-width: 900px) {

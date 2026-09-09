@@ -11,7 +11,7 @@ export const staticEvents: readonly ScoredEvent[] = [
 		desc: 'Judges interrogate every design decision and the reasoning behind it.',
 	},
 	{
-		name: 'Cost & Manufacturing',
+		name: 'Cost Report',
 		points: 100,
 		desc: 'A full bill of materials and manufacturing plan for the car.',
 	},
@@ -27,7 +27,7 @@ export const dynamicEvents: readonly ScoredEvent[] = [
 	{
 		name: 'Skidpad',
 		points: 75,
-		desc: 'A figure-of-eight measuring steady-state cornering grip.',
+		desc: 'A figure of eight measuring steady state cornering grip.',
 	},
 	{
 		name: 'Autocross',
@@ -37,7 +37,7 @@ export const dynamicEvents: readonly ScoredEvent[] = [
 	{
 		name: 'Endurance',
 		points: 325,
-		desc: '22 km flat out. The event that decides most competitions.',
+		desc: 'Timed long distance race. The event that decides most competitions.',
 	},
 	{
 		name: 'Efficiency',
