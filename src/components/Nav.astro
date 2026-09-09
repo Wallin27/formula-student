@@ -133,6 +133,10 @@ const primaryLinks = navLinks.filter((link) => link.href !== '/join-team');
 	}
 
 	.site-nav__toggle {
+		/* the tone the bars paint with, so they can flip with the logo */
+		--bar-ink: var(--color-accent);
+		--bar-ink-hover: var(--color-accent-bright);
+
 		display: none;
 		grid-column: 3;
 		justify-self: end;
@@ -148,16 +152,23 @@ const primaryLinks = navLinks.filter((link) => link.href !== '/join-team');
 		cursor: pointer;
 	}
 
+	/* over a cream chapter the gold reads too light, the same reason the logo
+	   darkens — see .site-nav[data-over-bright] .site-nav__brand above */
+	.site-nav[data-over-bright='true'] .site-nav__toggle {
+		--bar-ink: var(--color-brand);
+		--bar-ink-hover: var(--color-brand-deep);
+	}
+
 	.site-nav__toggle span {
 		display: block;
 		width: 24px;
 		height: 2px;
-		background-color: var(--color-accent);
+		background-color: var(--bar-ink);
 		transition: transform 300ms ease, opacity 200ms ease, background-color 300ms ease;
 	}
 
 	.site-nav__toggle:hover span {
-		background-color: var(--color-accent-bright);
+		background-color: var(--bar-ink-hover);
 	}
 
 	.site-nav__toggle:focus-visible {
