@@ -57,7 +57,21 @@ import PageLayout from '@/layouts/PageLayout.astro';
 			</p>
 		</aside>
 
-		<form class="form" method="post" action="#" enctype="multipart/form-data">
+		<form
+			class="form"
+			name="join-team"
+			method="post"
+			action="/thank-you"
+			enctype="multipart/form-data"
+			data-netlify="true"
+			netlify-honeypot="bot-field"
+		>
+			<input type="hidden" name="form-name" value="join-team" />
+
+			<p class="botfield" aria-hidden="true">
+				<label>Leave this empty <input name="bot-field" tabindex="-1" autocomplete="off" /></label>
+			</p>
+
 			<div class="row">
 				<div class="field">
 					<label class="label" for="name">Full name</label>
@@ -267,6 +281,18 @@ import PageLayout from '@/layouts/PageLayout.astro';
 	}
 
 	/* ----- Form ----- */
+
+	/* Honeypot: bots fill it in, people never see it. Not display:none —
+	   some bots skip fields hidden that way. */
+	.botfield {
+		position: absolute;
+		overflow: hidden;
+		width: 1px;
+		height: 1px;
+		margin: 0;
+		opacity: 0;
+		pointer-events: none;
+	}
 
 	.form {
 		display: grid;
