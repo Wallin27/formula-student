@@ -1,11 +1,29 @@
 ---
+import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import lineup from '@/assets/crowd.jpg';
 import Button from '@/components/Button.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
-import { foundingSlots, inKind, included, steps } from '@/data/partners';
+import { steps } from '@/data/partners';
 import { mailto, site } from '@/data/site';
 import PageLayout from '@/layouts/PageLayout.astro';
+
+/* the folder is the list: drop a logo in src/assets/partners/ and it shows up */
+const logos = Object.entries(
+	import.meta.glob<{ default: ImageMetadata }>(
+		'/src/assets/partners/*.{png,jpg,jpeg,webp,svg}',
+		{ eager: true },
+	),
+)
+	.sort(([a], [b]) => a.localeCompare(b))
+	.map(([path, file]) => ({
+		image: file.default,
+		/* 'ansys.png' -> 'Ansys', so the logo still has alt text */
+		name: (path.split('/').pop() ?? '')
+			.replace(/\.\w+$/, '')
+			.replace(/[-_]/g, ' ')
+			.replace(/^./, (c) => c.toUpperCase()),
+	}));
 ---
 <PageLayout
 	title={`Partners — ${site.name}`}
@@ -33,45 +51,30 @@ import PageLayout from '@/layouts/PageLayout.astro';
 			companies that share our vision and are helping us make it a reality.
 		</p>
 	</header>
-<!--  
-	<section class="tier" aria-labelledby="tier-founding">
-		<h2 class="tier__title" id="tier-founding">Founding Partners</h2>
-		<p class="tier__meta">
-			Nose &amp; sidepod placement // name in the team line // 100 000 SEK+
+
+	<section class="roster" aria-labelledby="roster-heading">
+		<h2 id="roster-heading" class="roster__title">The ones backing us</h2>
+
+		<p class="roster__note">
+			<span class="roster__note-label">Our first partner</span>
+			The first company to back the team — on board before we had a workshop,
+			a chassis, or a single ordered part.
 		</p>
-		<ul class="slots" role="list">
-			{foundingSlots.map((number) => (
-				<li class="slot">
-					<span class="slot__number">{number}</span>
-					<span class="slot__label">Your logo here</span>
+
+		<ul class="roster__grid" role="list">
+			{logos.map((logo) => (
+				<li class="partner">
+					<Image
+						class="partner__logo"
+						src={logo.image}
+						alt={logo.name}
+						densities={[1, 2]}
+						loading="lazy"
+						decoding="async"
+					/>
 				</li>
 			))}
 		</ul>
-	</section>
-
-	<section class="tier" aria-labelledby="tier-inkind">
-		<h2 class="tier__title" id="tier-inkind">We want your help!</h2>
-		<p class="tier__meta">
-			Whether it's machining, material, licences, transport, or mentorship we
-			want to hear from you. Every contribution is valuable and appreciated,
-			and we will make sure to give you credit for it.
-		</p>
-		<ul class="chips" role="list">
-			{inKind.map((item) => <li class="chip">{item}</li>)}
-		</ul>
-	</section>
--->
-	<section class="cta" aria-labelledby="partners-cta">
-		<p class="cta__eyebrow" id="partners-cta">Want to join our vision?</p>
-		<p class="cta__text">
-			Every krona and every donated hour goes into the first Formula Student
-			car ever built in Umeå. In return you get placement on the car, access
-			to the students behind it, and a founding credit that can only be
-			given once.
-		</p>
-		<div class="cta__btn">
-			<Button href="/contact" text="Contact us" size="large" />
-		</div>
 	</section>
 
 	<section
@@ -84,30 +87,20 @@ import PageLayout from '@/layouts/PageLayout.astro';
 
 			<h2 id="apply-heading" class="apply__title">Become a partner</h2>
 			<p class="apply__intro">
-				Backing us does not have to start with a budget meeting. Tell us what
-				you can offer: money, material, machine time or expertise and we
-				will build the partnership around it.
+				Every krona and every donated hour goes into the first Formula Student car ever built in Umeå. In return you get placement on the car, access to the students behind it, and a relationship with the team that will be building it for years to come. We are happy to discuss any kind of support, from financial to expertise to material, and we are open to creative ideas.
 			</p>
 
-			<ol class="apply__steps">
-				{steps.map((step) => (
-					<li class="apply__step">
-						<h3 class="apply__step-title">{step.title}</h3>
-						<p class="apply__step-text">{step.text}</p>
-					</li>
-				))}
-			</ol>
+			<div class="apply__layout">
+				<ol class="apply__steps">
+					{steps.map((step) => (
+						<li class="apply__step">
+							<h3 class="apply__step-title">{step.title}</h3>
+							<p class="apply__step-text">{step.text}</p>
+						</li>
+					))}
+				</ol>
 
-			<div class="apply__panel">
-				<div>
-					<p class="apply__panel-title">What we can offer</p>
-					<!-- <ul class="apply__list" role="list">
-						{included.map((item) => <li>{item}</li>)}
-					</ul>
-					-->
-				</div>
-
-				<div>
+				<div class="apply__panel">
 					<p class="apply__panel-title">Start the conversation</p>
 					<p class="apply__step-text">
 						We answer every mail, and we are happy to come to you and present
@@ -182,124 +175,83 @@ import PageLayout from '@/layouts/PageLayout.astro';
 		color: var(--color-white);
 	}
 
-	/* ----- Tiers ----- */
+	/* ----- Partner roster ----- */
 
-	.tier {
-		margin-bottom: 140px;
-	}
-
-	.tier__title {
+	.roster__title {
 		margin: 0;
-		font-family: var(--font-heading);
+		color: var(--color-white);
 		font-size: var(--text-4xl);
 		line-height: 1.2;
-		color: var(--color-white);
-	}
-
-	.tier__meta {
-		margin: 8px 0 0;
-		font-size: var(--text-base);
-		color: var(--color-accent);
-	}
-
-	/* ----- Empty sponsor slots ----- */
-
-	.slots {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-		gap: 20px;
-		margin: 48px 0 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	.slot {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		gap: 10px;
-		aspect-ratio: 16 / 9;
-		border: 1px dashed var(--border-accent-dash);
-		background: var(--surface-veil);
+		font-family: var(--font-heading);
+		text-transform: uppercase;
 		text-align: center;
 	}
 
-	.slot__number {
-		font-family: var(--font-heading);
-		font-size: var(--text-2xl);
-		line-height: 1;
-		color: var(--color-accent);
+	.roster__note {
+		max-width: 46ch;
+		margin: 28px auto 0;
+		padding: 18px 24px;
+		border: 1px solid var(--border-accent-soft);
+		border-radius: 12px;
+		background: var(--surface-veil);
+		color: var(--color-white);
+		font-size: var(--text-base);
+		line-height: var(--leading-2xl);
+		text-align: center;
 	}
 
-	.slot__label {
+	.roster__note-label {
+		display: block;
+		margin-bottom: 6px;
+		color: var(--color-accent);
 		font-size: 0.6875rem;
 		letter-spacing: 0.22em;
 		text-transform: uppercase;
-		color: var(--color-accent);
 	}
 
-	/* ----- In-kind chips ----- */
-
-	.chips {
+	/* flex, not grid: a half-full last row stays centred, so the roster grows
+	   outward from the middle instead of filling in from the left */
+	.roster__grid {
 		display: flex;
 		flex-wrap: wrap;
-		gap: 12px;
-		margin: 48px 0 0;
+		justify-content: center;
+		gap: 28px;
+		margin: 56px 0 0;
 		padding: 0;
 		list-style: none;
 	}
 
-	.chip {
-		padding: 12px 20px;
-		border: 1px solid var(--border-cream);
-		background: var(--surface-veil);
-		font-size: var(--text-base);
-		color: var(--color-white);
-	}
-
-	/* ----- Closing call to action ----- */
-
-	/* grid, not flex, so the button centres against the paragraph alone */
-	.cta {
+	/* no tile of its own — just an equal-sized slot every logo sits in */
+	.partner {
 		display: grid;
-		grid-template-columns: minmax(0, 46ch) auto;
-		justify-content: center;
-		align-items: center;
-		column-gap: 96px;
+		flex: 0 1 260px;
+		max-width: 320px;
+		aspect-ratio: 3 / 2;
+		padding: 28px;
 	}
 
-	.cta__eyebrow {
-		grid-column: 1;
-		grid-row: 1;
-		margin: 0;
-
-		/* letter-spacing leaves a trailing space after the last glyph */
-		margin-right: -0.28em;
-		font-size: 0.8125rem;
-		letter-spacing: 0.28em;
-		text-transform: uppercase;
-		color: var(--color-accent);
+	/* the img fills the tile's content box and object-fit does the centring, so
+	   it lands dead centre on both axes whatever shape the logo is */
+	.partner__logo {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		object-position: center center;
+		transition: transform 240ms ease;
 	}
 
-	.cta__text {
-		grid-column: 1;
-		grid-row: 2;
-		margin: 24px 0 0;
-		font-size: var(--text-lg);
-		line-height: var(--leading-2xl);
-		color: var(--color-white);
+	.partner:hover .partner__logo {
+		transform: scale(1.06);
 	}
 
-	.cta__btn {
-		grid-column: 2;
-		grid-row: 2; /* shares the paragraph's row, so it centres against it */
-		align-self: center;
-	}
+	@media (prefers-reduced-motion: reduce) {
+		.partner__logo {
+			transition: none;
+		}
 
-	/* :global because Button.astro renders the <a>, so it lacks this scope hash */
-	.cta__btn :global(.btn) {
-		letter-spacing: 0.22em;
+		.partner:hover .partner__logo {
+			transform: none;
+		}
 	}
 
 	/* ----- "Become a partner" chapter ----- */
@@ -319,19 +271,27 @@ import PageLayout from '@/layouts/PageLayout.astro';
 		line-height: var(--leading-2xl);
 	}
 
+	/* steps run down the left, the contact panel sits alongside them */
+	.apply__layout {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+		gap: 72px;
+		align-items: start;
+	}
+
 	.apply__steps {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-		gap: 32px;
-		margin: 0 0 64px;
+		gap: 36px;
+		margin: 0;
 		padding: 0;
 		list-style: none;
+		counter-reset: step;
 	}
 
 	.apply__step {
-		position: relative;
 		padding-top: 28px;
 		border-top: 1px solid rgb(var(--rgb-gold-deep) / 45%);
+		counter-increment: step;
 	}
 
 	.apply__step::before {
@@ -341,6 +301,7 @@ import PageLayout from '@/layouts/PageLayout.astro';
 		font-size: 0.8rem;
 		font-family: var(--font-heading);
 		letter-spacing: 0.18em;
+		content: '0' counter(step);
 	}
 
 	.apply__step-title {
@@ -359,9 +320,8 @@ import PageLayout from '@/layouts/PageLayout.astro';
 	}
 
 	.apply__panel {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-		gap: 48px;
+		position: sticky;
+		top: 120px;
 		padding: 40px;
 		border: 1px solid var(--border-deep-faint);
 		border-radius: 14px;
@@ -374,31 +334,6 @@ import PageLayout from '@/layouts/PageLayout.astro';
 		font-size: 0.8rem;
 		letter-spacing: 0.18em;
 		text-transform: uppercase;
-	}
-
-	.apply__list {
-		margin: 0;
-		padding: 0;
-		list-style: none;
-	}
-
-	.apply__list li {
-		position: relative;
-		padding-left: 22px;
-		margin-bottom: 12px;
-		color: var(--text-on-cream);
-		font-size: var(--text-base);
-		line-height: var(--leading-2xl);
-	}
-
-	.apply__list li::before {
-		position: absolute;
-		top: 0.7em;
-		left: 0;
-		width: 8px;
-		height: 1px;
-		background: var(--color-gold-deep);
-		content: '';
 	}
 
 	.apply__contact {
@@ -426,9 +361,13 @@ import PageLayout from '@/layouts/PageLayout.astro';
 			line-height: var(--leading-3xl);
 		}
 
-		.apply__panel {
+		.apply__layout {
 			grid-template-columns: minmax(0, 1fr);
-			gap: 32px;
+			gap: 48px;
+		}
+
+		.apply__panel {
+			position: static;
 			padding: 28px;
 		}
 	}
@@ -438,36 +377,14 @@ import PageLayout from '@/layouts/PageLayout.astro';
 			margin-bottom: 100px;
 		}
 
-		.tier {
-			margin-bottom: 90px;
+		.roster__grid {
+			gap: 20px;
+			margin-top: 40px;
 		}
 
-		/* auto-fit would drop to one column and make each 16:9 slot ~190px tall */
-		.slots {
-			grid-template-columns: repeat(2, 1fr);
-			gap: 12px;
-			margin-top: 32px;
-		}
-
-		.chips {
-			margin-top: 32px;
-			gap: 8px;
-		}
-
-		.chip {
-			padding: 10px 14px;
-			font-size: 0.875rem;
-		}
-
-		.cta {
-			grid-template-columns: minmax(0, 1fr);
-		}
-
-		.cta__btn {
-			grid-column: 1;
-			grid-row: 3;
-			justify-self: start;
-			margin-top: 32px;
+		.roster__title {
+			font-size: var(--text-3xl);
+			line-height: var(--leading-3xl);
 		}
 	}
 </style>
