@@ -9,8 +9,9 @@ export const site = {
 		inline: 'Umeå University, 901 87 Umeå, Sweden',
 	},
 	social: {
-		instagram: 'https://www.instagram.com/',
-		linkedin: 'https://www.linkedin.com/',
+		instagram: 'https://www.instagram.com/umeaformulastudent/?hl=en',
+		linkedin: 'https://www.linkedin.com/company/ume%C3%A5-formula-student/home/',
+		facebook: 'https://www.facebook.com/profile.php?id=61572063032367',
 	},
 } as const;
 
