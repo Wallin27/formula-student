@@ -117,7 +117,7 @@ import PageLayout from '@/layouts/PageLayout.astro';
 			<div class="row">
 				<div class="field">
 					<label class="label" for="resume">
-						Resume <span class="hint">PDF</span>
+						Resume <span class="hint">PDF or Word, max 4 MB</span>
 					</label>
 					<input
 						class="input file"
@@ -131,7 +131,7 @@ import PageLayout from '@/layouts/PageLayout.astro';
 
 				<div class="field">
 					<label class="label" for="cover-letter">
-						Cover letter <span class="hint">PDF</span>
+						Cover letter <span class="hint">PDF or Word, max 4 MB</span>
 					</label>
 					<input
 						class="input file"
@@ -142,6 +142,8 @@ import PageLayout from '@/layouts/PageLayout.astro';
 					/>
 				</div>
 			</div>
+
+			<p class="upload-error" id="upload-error" role="alert" hidden></p>
 
 			<div class="field">
 				<label class="label" for="about">
@@ -332,6 +334,17 @@ import PageLayout from '@/layouts/PageLayout.astro';
 		color: var(--text-dim);
 	}
 
+	.upload-error {
+		margin: 0;
+		font-size: var(--text-sm);
+		line-height: var(--leading-lg);
+		color: var(--color-danger);
+	}
+
+	.upload-error[hidden] {
+		display: none;
+	}
+
 	.input {
 		width: 100%;
 		min-height: 48px;
@@ -474,3 +487,62 @@ import PageLayout from '@/layouts/PageLayout.astro';
 		}
 	}
 </style>
+
+<script>
+	/* Netlify caps a whole submission at 8MB — both files, every text field and
+	   multipart overhead together. Without this the browser sends it anyway and
+	   the applicant lands on Netlify's error page with everything they typed
+	   gone, so the check has to happen before submit. */
+	const MAX_PER_FILE = 4 * 1024 * 1024;
+	const MAX_TOTAL = 7 * 1024 * 1024; /* headroom for the text fields */
+
+	const form = document.querySelector<HTMLFormElement>('.form');
+	const error = document.querySelector<HTMLParagraphElement>('#upload-error');
+
+	function megabytes(bytes: number) {
+		return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+	}
+
+	const NAMES: Record<string, string> = {
+		resume: 'Your resume',
+		coverLetter: 'Your cover letter',
+	};
+
+	function tooLarge() {
+		const inputs = form?.querySelectorAll<HTMLInputElement>('input[type="file"]') ?? [];
+		let total = 0;
+
+		for (const input of inputs) {
+			const file = input.files?.[0];
+			if (!file) continue;
+
+			total += file.size;
+			if (file.size > MAX_PER_FILE) {
+				const label = NAMES[input.name] ?? 'That file';
+				return `${label} is ${megabytes(file.size)} — please keep each file under 4 MB.`;
+			}
+		}
+
+		if (total > MAX_TOTAL) {
+			return `Your files add up to ${megabytes(total)}. Together they need to stay under 7 MB.`;
+		}
+
+		return null;
+	}
+
+	form?.addEventListener('submit', (event) => {
+		const message = tooLarge();
+
+		if (message) {
+			event.preventDefault();
+			if (error) {
+				error.textContent = message;
+				error.hidden = false;
+				error.scrollIntoView({ block: 'center', behavior: 'smooth' });
+			}
+			return;
+		}
+
+		if (error) error.hidden = true;
+	});
+</script>
