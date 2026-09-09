@@ -128,7 +128,7 @@
 .section__title {
 	margin: 0 0 32px;
 	color: var(--color-white);
-	font-size: clamp(2.25rem, 4.2vw, var(--text-6xl));
+	font-size: var(--text-6xl);
 	line-height: 1.06;
 	font-family: var(--font-heading);
 	text-transform: uppercase;

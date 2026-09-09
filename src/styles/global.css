@@ -57,31 +57,35 @@
   --font-body: 'Manrope', sans-serif;
   --font-heading: 'Space Grotesk', sans-serif;
 
-  /* Type scale */
+  /* Type scale — fluid, interpolating between a 375px and a 1440px viewport.
+     Every maximum is the previous fixed value, so desktop is unchanged. rem
+     endpoints keep the reader's browser font-size setting meaningful. */
   --text-base: 1rem;
-  --text-lg: 1.125rem;
-  --text-xl: 1.25rem;
-  --text-2xl: 1.5rem;
-  --text-3xl: 1.875rem;
-  --text-4xl: 2.25rem;
-  --text-5xl: 3rem;
-  --text-6xl: 3.75rem;
-  --text-7xl: 4.5rem;
-  --text-8xl: 6rem;
-  --text-9xl: 8rem;
+  --text-lg: clamp(1rem, 0.956rem + 0.188vw, 1.125rem);
+  --text-xl: clamp(1.0625rem, 0.9965rem + 0.282vw, 1.25rem);
+  --text-2xl: clamp(1.25rem, 1.162rem + 0.376vw, 1.5rem);
+  --text-3xl: clamp(1.5rem, 1.368rem + 0.563vw, 1.875rem);
+  --text-4xl: clamp(1.75rem, 1.5739rem + 0.751vw, 2.25rem);
+  --text-5xl: clamp(2rem, 1.6479rem + 1.502vw, 3rem);
+  --text-6xl: clamp(2.25rem, 1.7218rem + 2.254vw, 3.75rem);
+  --text-7xl: clamp(2.5rem, 1.7958rem + 3.005vw, 4.5rem);
+  --text-8xl: clamp(2.75rem, 1.6056rem + 4.883vw, 6rem);
+  --text-9xl: clamp(3rem, 1.2394rem + 7.512vw, 8rem);
 
-  /* Line heights, paired to the type scale above */
-  --leading-base: 1.5rem;
-  --leading-lg: 1.75rem;
-  --leading-xl: 1.75rem;
-  --leading-2xl: 2rem;
-  --leading-3xl: 2.25rem;
-  --leading-4xl: 2.5rem;
-  --leading-5xl: 3rem;
-  --leading-6xl: 3.75rem;
-  --leading-7xl: 4.5rem;
-  --leading-8xl: 6rem;
-  --leading-9xl: 8rem;
+  /* Line heights, paired to the type scale above. Unitless so they track the
+     fluid sizes — a fixed length here would leave 96px line boxes around 44px
+     mobile text. Ratios are the previous size/leading pairs exactly. */
+  --leading-base: 1.5;
+  --leading-lg: 1.556;
+  --leading-xl: 1.4;
+  --leading-2xl: 1.333;
+  --leading-3xl: 1.2;
+  --leading-4xl: 1.111;
+  --leading-5xl: 1;
+  --leading-6xl: 1;
+  --leading-7xl: 1;
+  --leading-8xl: 1;
+  --leading-9xl: 1;
 
   /* Page background gradients — swap any page between these freely */
   --bg-paddock: radial-gradient(120% 90% at 80% 15%, var(--color-brand-light) 0%, var(--color-brand) 46%, var(--color-brand-deep) 100%);
