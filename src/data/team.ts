@@ -48,9 +48,9 @@ export const milestones: readonly Milestone[] = [
 
 // PLACEHOLDER PEOPLE — 3 cards for the 3 confirmed members, replace before launch
 export const members: readonly Member[] = [
-	{ name: 'Johan Rainer', role: 'Founder & SB Lead', initials: 'JR' },
-	{ name: 'Namn Efternamn', role: 'Role to be confirmed', initials: 'NE' },
-	{ name: 'Namn Efternamn', role: 'Role to be confirmed', initials: 'NE' },
+	{ name: 'Johan Rainer', role: 'Founder & Suspension / Brakes Lead', initials: 'JR' },
+	{ name: 'Henrique Röbäck Fiusa', role: 'Founder & Business / Marketing Lead', initials: 'HRF' },
+	{ name: 'Noah Grönberg', role: 'Founder & ? / ? Lead', initials: 'NG' },
 ];
 
 export const studyYears: readonly string[] = ['1', '2', '3', '4', '5', 'Master', 'Other'];

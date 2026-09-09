@@ -141,7 +141,10 @@
 	margin: 0;
 	color: var(--color-text);
 	font-size: var(--text-xl);
-	line-height: 2rem;
+
+	/* ratio, not a fixed length: --text-xl is fluid now, and a 2rem leading
+	   stayed put as the text shrank */
+	line-height: 1.6;
 }
 
 /* full-bleed image behind a chapter */
@@ -178,6 +181,12 @@
 	.section {
 		min-height: auto;
 		padding: 96px 24px;
+	}
+
+	/* 96px is less than the fixed nav, so a chapter that opens a page would
+	   otherwise start underneath it */
+	main > .section:first-child {
+		padding-top: calc(var(--nav-height) + 32px);
 	}
 
 	.hero:has(+ .section--cut),

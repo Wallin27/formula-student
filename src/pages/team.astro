@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import gocart from '@/assets/gocart.jpg';
 import Button from '@/components/Button.astro';
 import CallToAction from '@/components/CallToAction.astro';
 import Eyebrow from '@/components/Eyebrow.astro';
@@ -13,14 +15,25 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 >
 	<!-- 1. Team intro -->
 	<section class="section team" aria-labelledby="team-heading">
-		<div class="section__inner">
-			<Eyebrow text="The team" stripes={2} />
+		<div class="section__bg" aria-hidden="true">
+			<Image
+				class="section__bg-img"
+				src={gocart}
+				alt=""
+				widths={[960, 1440, 1920, 2560]}
+				sizes="100vw"
+				decoding="async"
+			/>
+		</div>
 
-			<h1 id="team-heading" class="section__title">The team</h1>
+		<div class="section__inner">
+			<Eyebrow text="The team" stripes={2} size="sm" />
+
+			<h1 id="team-heading" class="section__title">Who are we?</h1>
 
 			<p class="section__text">
-				We are students from different programmes at Umeå University, building
-				the first Formula Student car in the north from an empty workshop.
+				lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl nec
+				lacinia lacinia, nisl nisl aliquam nisl, eu aliquam nisl nisl eu nisl. Sed euismod, nisl nec lacinia lacinia, nisl nisl aliquam nisl, eu aliquam nisl nisl eu nisl. Sed euismod, nisl nec lacinia lacinia, nisl nisl aliquam nisl, eu aliquam nisl nisl eu nisl. Sed euismod, nisl nec lacinia lacinia, nisl nisl aliquam nisl, eu aliquam nisl nisl eu nisl. Sed euismod, nisl nec lacinia lacinia, nisl nisl aliquam nisl, eu aliquam nisl nisl eu nisl
 			</p>
 		</div>
 	</section>
@@ -53,7 +66,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 		<div class="section__inner">
 			<h2 id="members-heading" class="members__title">The people</h2>
 			<p class="members__intro">
-				The founding members putting the team together. This list is work in progress and will be updated groups are formed and more members join. 
+			The founding members putting the team together. This list is work in progress and will be updated when groups are formed and more members join...
 			</p>
 
 			<div class="members__grid">
@@ -101,7 +114,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 	<CallToAction
 		id="team-cta-heading"
 		title="Want in?"
-		text="Recruitment is open across every subgroup. No experience required — only that you want to learn, and that you show up."
+		text="Recruitment is open across every subgroup. No experience required! Only that you want to learn, and that you show up."
 		class="section--cut-reverse"
 	>
 		<Button href="/join-team" text="Join us" size="large" />
@@ -110,8 +123,9 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 </BaseLayout>
 
 <style>
+	/* the gocart photo carries this chapter — carbon only shows through the overlay */
 	.team {
-		background: var(--bg-dawn);
+		background: var(--bg-carbon);
 	}
 
 	/* ----- Timeline ----- */

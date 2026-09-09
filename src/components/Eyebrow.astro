@@ -38,6 +38,8 @@ const {
 
 <style>
 	.eyebrow {
+		--eyebrow-tracking: 0.28em;
+
 		display: flex;
 		align-items: center;
 	}
@@ -72,7 +74,7 @@ const {
 
 	.eyebrow__stripe {
 		flex: none;
-		width: 80px;
+		width: clamp(28px, 6vw, 80px);
 		height: 1px;
 		background: var(--eyebrow-ink);
 	}
@@ -81,23 +83,33 @@ const {
 		margin: 0;
 
 		/* fixes gap caused by letter-spacing */
-		margin-right: -0.28em;
+		margin-right: calc(var(--eyebrow-tracking) * -1);
 		color: var(--eyebrow-ink);
-		letter-spacing: 0.28em;
+		letter-spacing: var(--eyebrow-tracking);
 		text-transform: uppercase;
 	}
 
 	.eyebrow[data-size='md'] .eyebrow__text {
-		font-size: var(--text-base);
+		font-size: clamp(0.8125rem, 0.7465rem + 0.282vw, 1rem);
 	}
 
 	.eyebrow[data-size='sm'] .eyebrow__text {
-		font-size: 0.8125rem;
+		font-size: clamp(0.6875rem, 0.6435rem + 0.188vw, 0.8125rem);
 	}
 
+	/* 0.28em of tracking adds roughly a third to the string width, which is what
+	   crowds the eyebrow on a phone long before the font size does */
 	@media (max-width: 720px) {
-		.eyebrow[data-size='sm'] .eyebrow__stripe {
-			width: 44px;
+		.eyebrow {
+			--eyebrow-tracking: 0.18em;
+		}
+
+		.eyebrow[data-size='md'] {
+			gap: 8px;
+		}
+
+		.eyebrow[data-size='sm'] {
+			gap: 10px;
 		}
 	}
 </style>

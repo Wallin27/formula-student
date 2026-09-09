@@ -33,26 +33,30 @@ const groups = [
 >
 	<section class="section fs-hero" aria-labelledby="fs-heading">
 		<div class="section__inner">
-			<Eyebrow text="The competition" />
+			<Eyebrow text="The competition" stripes={2} size="sm" />
 
 			<h1 id="fs-heading" class="section__title">
 				What is Formula Student?
 			</h1>
 
-			<p class="section__text">
-				Formula Student is the world's largest engineering design competition.
-				University teams design, build, and race formula-style vehicles, judged
-				on engineering excellence, cost efficiency, and performance.
-			</p>
+			<div class="fs-hero__columns">
+				<p class="section__text">
+					Formula Student is the world's largest engineering design
+					competition. University teams design, build, and race formula-style
+					vehicles, judged on engineering excellence, cost efficiency, and
+					performance.
+				</p>
 
-			<p class="fs-hero__body">
-				It runs as a season, not a weekend. Teams spend a full academic year
-				taking a car from a blank sheet through design, manufacturing and
-				testing, then bring it to an international event to be measured against
-				universities from across the world. The competition deliberately
-				rewards more than lap time — which is why teams are built from every
-				discipline: mechanical, electrical, software, business and design.
-			</p>
+				<p class="fs-hero__body">
+					It runs as a season, not a weekend. Teams spend a full academic year
+					taking a car from a blank sheet through design, manufacturing and
+					testing, then bring it to an international event to be measured
+					against universities from across the world. The competition
+					deliberately rewards more than lap time — which is why teams are
+					built from every discipline: mechanical, electrical, software,
+					business and design.
+				</p>
+			</div>
 		</div>
 	</section>
 
@@ -67,7 +71,7 @@ const groups = [
 			<p class="fs-format__intro">
 				A competition is split into static events, judged off the track, and
 				dynamic events, driven on it. Every car must first pass technical
-				scrutineering — a full safety inspection — before it is allowed to run.
+				scrutineering, a full safety inspection, before it is allowed to run.
 				Points from both halves are added together to decide the standings.
 			</p>
 
@@ -113,12 +117,21 @@ const groups = [
 		background: var(--bg-mesh);
 	}
 
+	/* the two paragraphs sit side by side rather than stacked, so they read as
+	   two blocks instead of one column that changes rhythm halfway down */
+	.fs-hero__columns {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 56px;
+		align-items: start;
+	}
+
+	/* matches .section__text's ratio: the two were on 32px and 24px leading */
 	.fs-hero__body {
-		max-width: 62ch;
-		margin: 28px 0 0;
+		margin: 0;
 		color: var(--color-text);
 		font-size: var(--text-lg);
-		line-height: var(--leading-2xl);
+		line-height: 1.6;
 	}
 
 	/* ----- How it works ----- */
@@ -254,6 +267,11 @@ const groups = [
 	}
 
 	@media (max-width: 900px) {
+		.fs-hero__columns {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 28px;
+		}
+
 		.fs-format__title {
 			font-size: var(--text-3xl);
 			line-height: var(--leading-3xl);

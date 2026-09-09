@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Base channels — compose any alpha with rgb(var(--rgb-*) / N%) */
+  /* Base channels: set any alpha with rgb(var(--rgb-*) / N%) */
   --rgb-deep: 0 48 29;              /* #00301d */
   --rgb-brand: 0 66 37;             /* #004225 */
-  --rgb-void: 0 21 16;              /* #001510 */
+  --rgb-void: 0 20 12;              /* #00140C */
   --rgb-cream: 245 239 223;         /* #f5efdf */
   --rgb-accent: 198 161 91;         /* #c6a15b */
   --rgb-accent-bright: 253 212 137; /* #fdd489 */
@@ -21,7 +21,7 @@
   --color-accent: rgb(var(--rgb-accent));
   --color-accent-bright: rgb(var(--rgb-accent-bright));
 
-  /* gold reads too light on the cream chapters, so those use the deep tones */
+  /* gold reads too light on the cream chapters, use deep tones */
   --color-gold-deep: rgb(var(--rgb-gold-deep));
   --color-gold-link: #7a5f16;
   --color-cream: rgb(var(--rgb-cream));
@@ -29,7 +29,7 @@
   --color-ink-soft: #3d2f10;
   --color-white: #fff;
   --color-black: #000;
-  --color-text: rgb(var(--rgb-cream) / 80%);
+  --color-text: rgb(var(--rgb-cream));
   --color-danger: #e2725b;
   --color-danger-soft: #f0a08c;
 
@@ -57,9 +57,7 @@
   --font-body: 'Manrope', sans-serif;
   --font-heading: 'Space Grotesk', sans-serif;
 
-  /* Type scale — fluid, interpolating between a 375px and a 1440px viewport.
-     Every maximum is the previous fixed value, so desktop is unchanged. rem
-     endpoints keep the reader's browser font-size setting meaningful. */
+  /* Text scaling */
   --text-base: 1rem;
   --text-lg: clamp(1rem, 0.956rem + 0.188vw, 1.125rem);
   --text-xl: clamp(1.0625rem, 0.9965rem + 0.282vw, 1.25rem);
@@ -72,9 +70,7 @@
   --text-8xl: clamp(2.75rem, 1.6056rem + 4.883vw, 6rem);
   --text-9xl: clamp(3rem, 1.2394rem + 7.512vw, 8rem);
 
-  /* Line heights, paired to the type scale above. Unitless so they track the
-     fluid sizes — a fixed length here would leave 96px line boxes around 44px
-     mobile text. Ratios are the previous size/leading pairs exactly. */
+  /* Line height accordin to textscale. */
   --leading-base: 1.5;
   --leading-lg: 1.556;
   --leading-xl: 1.4;
@@ -99,12 +95,15 @@
     var(--color-brand);
   --bg-dawn: linear-gradient(180deg, var(--color-brand-deep) 0%, var(--color-brand) 45%, var(--color-brand-light) 78%, #177a4c 100%);
   --bg-sweep: conic-gradient(from 210deg at 70% 30%, var(--color-brand-deep) 0deg, var(--color-brand) 90deg, var(--color-brand-light) 170deg, var(--color-brand) 250deg, var(--color-brand-deep) 360deg);
-  --bg-void: radial-gradient(100% 80% at 50% 0%, var(--color-brand) 0%, var(--color-brand-deep) 45%, var(--color-void) 100%);
+  --bg-void: radial-gradient(100% 80% at 50% 0%, var(--color-brand) 10%, var(--color-brand-deep) 45%, var(--color-void) 100%);
   --bg-flat: var(--color-brand);
 
   /* Bright chapter backgrounds — see .section--bright / .section--accent */
   --bg-cream: linear-gradient(165deg, #f7f2e4 0%, #efe6cf 55%, #e7d9b8 100%);
   --bg-gold: linear-gradient(165deg, #d9b268 0%, var(--color-accent) 55%, #a8843f 100%);
+
+  /* Layout */
+  --nav-height: 100px;
 
   /* Icons */
   --icon-xs: 16px;
