@@ -91,14 +91,14 @@ const logos = Object.entries(
 			</p>
 
 			<div class="apply__layout">
-				<ol class="apply__steps">
+				<ul class="apply__steps">
 					{steps.map((step) => (
 						<li class="apply__step">
 							<h3 class="apply__step-title">{step.title}</h3>
 							<p class="apply__step-text">{step.text}</p>
 						</li>
 					))}
-				</ol>
+				</ul>
 
 				<div class="apply__panel">
 					<p class="apply__panel-title">Start the conversation</p>
@@ -285,23 +285,11 @@ const logos = Object.entries(
 		margin: 0;
 		padding: 0;
 		list-style: none;
-		counter-reset: step;
 	}
 
 	.apply__step {
 		padding-top: 28px;
 		border-top: 1px solid rgb(var(--rgb-gold-deep) / 45%);
-		counter-increment: step;
-	}
-
-	.apply__step::before {
-		display: block;
-		margin-bottom: 14px;
-		color: var(--color-gold-deep);
-		font-size: 0.8rem;
-		font-family: var(--font-heading);
-		letter-spacing: 0.18em;
-		content: '0' counter(step);
 	}
 
 	.apply__step-title {
