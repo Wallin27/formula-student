@@ -13,7 +13,7 @@ export const steps: readonly PartnerStep[] = [
 		text: 'We tell you where the project stands and what we need. You tell us what you can offer.',
 	},
 	{
-		title: 'We agree the details',
+		title: 'We agree on the details',
 		text: 'Cash, parts, hours or services, we shape the partnership around what actually suits you.',
 	},
 ];
