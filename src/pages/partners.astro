@@ -8,7 +8,7 @@ import { steps } from '@/data/partners';
 import { mailto, site } from '@/data/site';
 import PageLayout from '@/layouts/PageLayout.astro';
 
-/* the folder is the list: drop a logo in src/assets/partners/ and it shows up */
+/* scans folder for partner logo */
 const logos = Object.entries(
 	import.meta.glob<{ default: ImageMetadata }>(
 		'/src/assets/partners/*.{png,jpg,jpeg,webp,svg}',
@@ -53,13 +53,6 @@ const logos = Object.entries(
 	</header>
 
 	<section class="roster" aria-labelledby="roster-heading">
-		<h2 id="roster-heading" class="roster__title">The ones backing us</h2>
-
-		<p class="roster__note">
-			<span class="roster__note-label">Our first partner</span>
-			The first company to back the team, on board before we had a workshop,
-			a chassis, or a single ordered part. Many thanks to the Ansys team for believing in us and helping us get started.
-		</p>
 
 		<ul class="roster__grid" role="list">
 			{logos.map((logo) => (
@@ -133,7 +126,7 @@ const logos = Object.entries(
 		/* a viewport-relative band, not a %: the section grows as sponsors are added */
 		height: min(125vh, 1300px);
 		object-fit: cover;
-		object-position: center 35%;
+		object-position: center 45%;
 		opacity: 0.38; /* 0.30-0.45 keeps body text readable */
 		mix-blend-mode: luminosity;
 		-webkit-mask-image: linear-gradient(to bottom, var(--color-black) 0%, var(--color-black) 40%, transparent 100%);
@@ -155,7 +148,7 @@ const logos = Object.entries(
 	/* ----- Intro ----- */
 
 	.intro {
-		margin-bottom: 160px;
+		margin-bottom: 50px;
 		text-align: center;
 	}
 
@@ -187,31 +180,6 @@ const logos = Object.entries(
 		text-align: center;
 	}
 
-	.roster__note {
-		max-width: 46ch;
-		margin: 28px auto 0;
-		padding: 18px 24px;
-		border: 1px solid var(--border-accent-soft);
-		border-radius: 12px;
-		background: var(--surface-veil);
-		-webkit-backdrop-filter: blur(6px);
-        backdrop-filter: blur(6px);
-		color: var(--color-white);
-		font-size: var(--text-base);
-		line-height: var(--leading-2xl);
-		text-align: center;
-
-	}
-
-	.roster__note-label {
-		display: block;
-		margin-bottom: 6px;
-		color: var(--color-accent);
-		font-size: 0.6875rem;
-		letter-spacing: 0.22em;
-		text-transform: uppercase;
-	}
-
 	/* flex, not grid: a half-full last row stays centred, so the roster grows
 	   outward from the middle instead of filling in from the left */
 	.roster__grid {
@@ -219,7 +187,7 @@ const logos = Object.entries(
 		flex-wrap: wrap;
 		justify-content: center;
 		gap: 28px;
-		margin: 56px 0 0;
+		margin-top: 0%;
 		padding: 0;
 		list-style: none;
 	}
@@ -227,8 +195,8 @@ const logos = Object.entries(
 	/* no tile of its own — just an equal-sized slot every logo sits in */
 	.partner {
 		display: grid;
-		flex: 0 1 260px;
-		max-width: 320px;
+		flex: 1 1 260px;
+		max-width: 430px;
 		aspect-ratio: 3 / 2;
 		padding: 28px;
 	}
@@ -376,5 +344,10 @@ const logos = Object.entries(
 			font-size: var(--text-3xl);
 			line-height: var(--leading-3xl);
 		}
-	}
+		.partner {
+			flex: 1 1 calc(50% - 10px);   /* half the row, minus half the 20p */
+            max-width: calc(50% - 10px);
+        	padding: 14px;
+		}
+      }
 </style>
