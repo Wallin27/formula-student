@@ -25,3 +25,9 @@ pnpm-debug.log*
 # claude / agents etc
 AGENTS.md
 CLAUDE.md
+DESIGN.md
+Product.md
+
+# direcotries
+.claude/
+.impeccable/
